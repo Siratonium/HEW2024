@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/style.css">
+    <script src="../JS/shelf.js" defer></script>
+    <title>駄菓子屋サンプル</title>
+</head>
+<body>
+    <header>
+        <ul class="headerWrapper">
+            <li class="headerMenu" id="logo"></li>
+            <li class="headerMenu" id="lank"></li>
+            <li class="headerMenu" id="cate"></li>
+            <li class="headerMenu" id="reco"></li>
+            <li class="headerMenu" id="basket"></li>
+            <li class="headerMenu" id="sarch"></li>
+        </ul>
+    </header>
+    <main>
+        <div class="bg">
+            <img id="bgshelf" src="../IMG/IMG_0318.png" alt="">
+            <img id="bgbasket" src="../IMG/basket.png" alt="">
+            <img class="bghigh" id="bgbasket_h" src="../IMG/basket_h.png" alt="">
+            <img class="bghigh" id="memo_h" src="../IMG/Shelf/S_memo.png" alt="">
+        </div>
+        <div class="combase" id="com1">
+            <ul>
+                <li class="com" id="1"></li>
+                <li class="com" id="2"></li>
+                <li class="com" id="3"></li>
+                <li class="com" id="4"></li>
+                <li class="com" id="5"></li>
+            </ul>
+        </div>
+        <div class="combase" id="com2">
+            <ul>
+                <li class="com" id="6"></li>
+                <li class="com" id="7"></li>
+                <li class="com" id="8"></li>
+                <li class="com" id="9"></li>
+                <li class="com" id="10"></li>
+            </ul>
+        </div>
+        <div class="combase" id="com3">
+            <ul>
+                <li class="com" id="11"></li>
+                <li class="com" id="12"></li>
+                <li class="com" id="13"></li>
+                <li class="com" id="14"></li>
+                <li class="com" id="15"></li>
+            </ul>
+        </div>
+        <div class="combase" id="com4">
+            <ul>
+                <li class="com" id="16"></li>
+                <li class="com" id="17"></li>
+                <li class="com" id="18"></li>
+                <li class="com" id="19"></li>
+                <li class="com" id="20"></li>
+            </ul>
+        </div>
+        <div class="combase" id="com5">
+            <ul>
+                <li class="com" id="21"></li>
+                <li class="com" id="22"></li>
+                <li class="com" id="23"></li>
+                <li class="com" id="24"></li>
+                <li class="com" id="25"></li>
+            </ul>
+        </div>
+        <div class="combase" id="com6">
+            <ul>
+                <li class="com" id="26"></li>
+                <li class="com" id="27"></li>
+                <li class="com" id="28"></li>
+                <li class="com" id="29"></li>
+                <li class="com" id="30"></li>
+            </ul>
+        </div>
+        <div class="com_card">
+            <div class="card_header"></div>
+            <i class="cross" id="c_c"><i class="c_l"></i><i class="c_r"></i></i>
+            <div class="card">
+                <div class="card_img">
+                    <img src="" alt="">
+                </div>
+                <div class="com_data">
+                    <h1 class="com_title"></h1>
+                    <div class="com_info">
+                        <ul>
+                            <li><p class="info_t">風味</p><p>--</p></li>
+                            <li><p class="info_t">カテゴリー</p><p>--</p></li>
+                            <li><p class="info_t">重量</p><p>--g</p></li>
+                            <li><p class="info_t">パッケージ重量</p><p>--g</p></li>
+                            <li><p class="info_t">ブランド</p><p>--</p></li>
+                        </ul>
+                    </div>
+                    <div class="com_info2">
+                        <p>この商品について</p>
+                    </div>
+                </div>
+                <div class="buy">
+                    <h1 class="buy_fee">¥50<p>(税込)</p></h1>
+                    <select name="buy" id="buy_input">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                    <button id="to_cart">カートに入れる</button>
+                    <button id="ferberite">お気に入りに追加</button>
+                </div>
+            </div>
+            <div class="card_header"></div>
+        </div>
+        <div class="memo">
+            <i class="cross" id="b_c"><i class="c_l"></i><i class="c_r"></i></i>
+            <div class="memo_header">
+                <h1>MEMO</h1>
+            </div>
+            <div>
+                <ul class="memo_list"></ul>
+            </div>
+        </div>
+        <div class="click" id="c_basket"></div>
+        <div class="click" id="prev">
+            <a href="index.html">
+                <div class="click" id="prev_in">
+                    <i id="arrow"></i>
+                </div>
+            </a>
+        </div>
+    </main>
+</body>
+</html>

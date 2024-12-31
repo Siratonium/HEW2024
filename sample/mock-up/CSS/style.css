@@ -1,0 +1,554 @@
+@charset "utf-8";
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 20px;
+    font-style: normal;
+}
+body{
+    width: 100vw;
+    height: 100vh;
+}
+header{
+    width: 100vw;
+    height: 80px;
+    position: absolute;
+    z-index: 100;
+}
+.headerWrapper{
+    width: 100%;
+    height: 100%;
+    background-color: #eeddcc;
+    display: flex;
+    justify-content: space-between;
+}
+.headerMenu{
+    width: 250px;
+    height: 100%;
+    background-color: #ccbbaa;
+}
+#logo{
+    width: 500px;
+}
+#sarch{
+    width: 300px;
+}
+/* main */
+main{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-color: #e0d5d1;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+/* 背景制御 */
+.bg{
+   width: 100%;
+   height: 100%;
+   overflow: hidden; 
+}
+.bg img{
+    width: 100%;
+    height: 100%;
+    object-position: bottom 0 left 0;
+    position: absolute;
+}
+.bghigh{
+    opacity: 0;
+}
+#bgbasket{
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 1200px;
+    height: auto;
+}
+#bgbasket_h{
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 1200px;
+    height: auto;
+}
+
+/* クリックエリア制御 */
+.click{
+    width: 200px;
+    height: 200px;
+    /* background-color: rgba(100, 100, 100, 0.5); */
+    position: absolute;
+    cursor: pointer;
+}
+#poster{
+    bottom: 290px;
+    left: 150px;
+    width: 220px;
+    height: 405px;
+}
+#check{
+    bottom: 270px;
+    left: 440px;
+    width: 775px;
+    height: 170px;
+}
+#shelf{
+    bottom: 22px;
+    right: 48px;
+    width: 537px;
+    height: 540px;
+}
+#c_basket{
+    bottom: 40px;
+    left: 50px;
+    width: 300px;
+}
+
+/* 商品棚制御 */
+.combase{
+    width: 800px;
+    height: 115px;
+    /* background-color: rgba(100, 100, 100, 0.5); */
+    position: absolute;
+}
+.com{
+    position: relative;
+}
+.com:hover .com_del{
+    display: block;
+}
+#com1{
+    bottom: 630px;
+    left: 102px;
+}
+#com2{
+    bottom: 630px;
+    right: 102px;
+}
+#com3{
+    bottom: 503px;
+    left: 102px;
+}
+#com4{
+    bottom: 503px;
+    right: 102px;
+}
+#com5{
+    bottom: 377px;
+    left: 102px;
+}
+#com6{
+    bottom: 377px;
+    right: 102px;
+}
+.combase ul{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between
+}
+.combase ul li{
+    width: calc(100% / 5);
+    height: 100%;
+}
+.combase ul li:hover{
+    background-color: rgba(100, 100, 100, 0.5);
+    cursor: pointer;
+}
+.com_del{
+    width: 200px;
+    height: 150px;
+    background-color: #fff;
+    position: absolute;
+    right: -200px;
+    bottom: -120px;
+    display: none;
+}
+#prev{
+    width: 100%;
+    height: 90px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+#prev_in{
+    width: 300px;
+    height: 100%;
+    margin: auto;
+    left: 50%;
+    transform: translate(-50%);
+}
+#arrow{
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-bottom: rgba(100, 100, 100, 0.5) 3px solid;
+    border-left: rgba(100, 100, 100, 0.5) 3px solid;
+    transform: rotate(-45deg);
+    margin: auto;
+}
+#arrow_hover{
+    display: block;
+    width: 60px;
+    height: 60px;
+    border-bottom: rgba(100, 100, 100, 1) 3px solid;
+    border-left: rgba(100, 100, 100, 1) 3px solid;
+    transform: rotate(-45deg);
+    margin: auto;
+}
+/* 買い物かご */
+.memo{
+    width: 1060px;
+    height: 700px;
+    /* background-color: rgba(100, 100, 100, 0.5); */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(calc(-50% + 5px), calc(-50% + 40px));
+    z-index: 100;
+    display: none;
+}
+.memo_header{
+    width: 100%;
+    height: 50px;
+}
+.memo_header h1{
+    margin: auto;
+    text-align: center;
+    font-size: 30px;
+    border-bottom: 1px solid #000;
+}
+.memo_list{
+    width: 1060px;
+    height: 650px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    /* cursor: pointer; */
+}
+.memo_list::-webkit-scrollbar{
+    display: none;
+}
+.memo_list li{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.memo_number{
+    display: block;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+}
+.memo_img{
+    width: 100px;
+    height: 100px;
+    border: #000 1px solid;
+}
+.memo_title{
+    width: 800px;
+}
+.memo_title h1{
+    font-size: 30px;
+}
+.memo_command{
+    display: flex;
+    gap: 10px;
+}
+.memo_c{
+    font-size: 16px;
+    color: blue;
+    cursor: pointer;
+}
+.memo_q{
+    width: 150px;
+    height: 100%;
+    gap: 10px   ;
+}
+.memo_qv{
+    font-size: 20px;
+}
+
+/* 商品カード */
+.card_header{
+    width: 100%;
+    height: 50px;
+    background-color: rgba(100, 100, 100, 1);
+}
+#card_dis{
+
+}
+.com_card{
+    width: 1200px;
+    height: 700px;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    border-radius: 20px;
+    border: rgba(100, 100, 100, 1) 1px solid;
+    overflow: hidden;
+    display: none;
+}
+.cross{
+    width: 30px;
+    height: 30px;
+    /* background-color: rgba(100, 0, 0, 1); */
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 100;
+    cursor: pointer;
+}
+.c_l{
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-left:  #fff 3px solid;
+    transform: rotate(45deg);
+    top: 9px;
+    left: 8px;
+}
+.c_r{
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-left:  #fff 3px solid;
+    transform: rotate(-45deg);
+    top: -10px;
+    left: 8px;
+}
+#b_c i{
+    border-color: rgba(100, 100, 100, 1);
+}
+.card{
+    width: 95%;
+    height: calc(100% - 100px);
+    display: flex;
+    justify-content: space-around;
+    /* flex-wrap: wrap; */
+}
+.card_img{
+    width: 30%;
+    height: calc(100% - 60px);
+}
+.card_img img{
+    width: 100%;
+    height: 100%;
+    margin: 30px 0 30px 0;
+}
+.com_title{
+    height: 60px;
+    font-size: 30px;
+    border-bottom: rgba(100, 100, 100, 1) 2px solid;
+
+}
+.com_fee{
+    height: 60px;
+    font-size: 40px;
+    border-bottom: rgba(100, 100, 100, 1) 2px solid;
+    display: flex;
+    align-items: center;
+}
+.com_data{
+    width: 40%;
+    height: 200px;
+    margin: 30px 0 30px 0;
+}
+.com_info{
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    border-bottom: rgba(100, 100, 100, 1) 2px solid;
+}
+.com_info li{
+    display: flex;
+    justify-content: space-between;
+}
+.info_t{
+    font-weight: bold;
+}
+.com_info2{
+
+}
+.buy{
+    width: 20%;
+    height: calc(100% - 100px);
+    margin: 30px 0 30px 0;
+    border: rgba(100, 100, 100, 1) 1px solid;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.buy_fee{
+    width: 100%;
+    height: 60px;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+#buy_input{
+    width: 150px;
+    height: 40px;
+}
+.buy button{
+    width: 200px;
+    height: 40px;
+}
+
+/* 会計ページ */
+.receipt{
+    width: 1059px;
+    height: 750px;
+    position: absolute;
+    top: 135px;
+    left: 77px;
+    /* background-color: rgba(100, 100, 100, 0.5); */
+    padding: 20px;
+}
+.basketlist{
+    width: 1000px;
+    height: 600px;
+    margin: auto;
+    /* background-color: rgba(100, 100, 100, 0.5); */
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.basketlist::-webkit-scrollbar{
+    display: none;
+}
+.line{
+    width: 100%;
+    height: calc((100% - 20px)/4);
+    /* background-color: rgba(100, 100, 100, 0.5); */
+    /* background-color: rgba(200, 100, 100, 0.5); */
+    margin: 5px 0;
+    display: flex;
+    gap: 5px;
+}
+.num{
+    width: 10px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.img{
+    width: 145px;
+    height: 100%;
+    /* background-color: rgba(200, 100, 100, 0.5); */
+}
+.name{
+    width: 570px;
+    height: 100%;
+    padding: 10px;
+    /* background-color: rgba(200, 100, 100, 0.5); */
+}
+.com_name{
+    width: 100%;
+    height: 80%;
+}
+.control{
+    display: flex;
+    gap: 10px;
+}
+.count_select{
+    font-size: 16px;
+}
+.count_select option{
+    font-size: 16px;
+}
+.delet{
+    padding-left: 10px;
+    font-size: 16px;
+    border-left: rgba(100, 100, 100, 0.5) 1px solid;
+    color: blue;
+}
+.delet:hover{
+    text-decoration: underline;
+}
+.count{
+    width: 260px;
+    height: 100%;
+    text-align: center;
+    /* background-color: rgba(200, 100, 100, 0.5); */
+}
+.count_com{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.count_fee{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.total_line{
+    width: 1000px;
+    height: 50px;
+    margin: auto;
+    display: flex;
+    gap: 5px;
+    /* background-color: rgba(100, 100, 100, 0.5); */
+}
+.total_com{
+    width: 735px;
+    height: 100%;
+    text-align: right;
+    /* background-color: rgba(200, 100, 100, 0.5); */
+}
+.total_fee{
+    width: 260px;
+    height: 100%;
+    text-align: center;
+    /* background-color: rgba(200, 100, 100, 0.5); */
+}
+
+.check_next{
+    width: 1000px;
+    height: 50px;
+    margin: 10px auto;
+    display: flex;
+    justify-content: space-around;
+}
+.check_bnt{
+    width: 200px;
+    height: 50px;
+}
+.over{
+    display: none;
+    width: 100px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.over input{
+    width: 50px;
+    height: 25px;
+    font-size: 16px;
+
+}
+.over button{
+    width: 40px;
+    height: 25px;
+    font-size: 14px;
+    text-align: center;
+}

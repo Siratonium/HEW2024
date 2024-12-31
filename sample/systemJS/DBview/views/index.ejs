@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DB出力サンプル</title>
+</head>
+<body>
+    <h1>ボタンごとに出力</h1>
+    <% userTable.forEach(user => { %>
+        <button class="btn" value=<%= user.id %>><%= user.id %></button>
+    <% }); %>
+        <button id="del">削除</button>
+    <% userTable.forEach(user => { %>
+        <p class="data" id=<%= user.id %>><%=user.name %></p>
+    <% }); %>
+    <h1>レコードの追加</h1>
+    
+</body>
+<style>
+    .data{
+        display: none;
+    }
+</style>
+<script>
+    // ボタンごとの出力
+    const btn = document.getElementsByClassName("btn")
+    const data = document.getElementsByClassName("data")
+    for(let i=0; i<btn.length; i++){
+        btn[i].addEventListener("click", (e)=>{
+            let id = e.target.value
+            console.log(id)
+            for(let i=0; i<data.length; i++){
+                data[i].style.display = "none"
+            }
+            let tag = document.getElementById(id)
+            console.log(tag)
+            tag.style.display = "block"
+        })
+    }
+    const delBtn = document.getElementById("del")
+    delBtn.addEventListener("click", (e)=>{
+        for(let i=0; i<data.length; i++){
+                data[i].style.display = "none"
+            }
+    })
+    // データの計算
+</script>
+</html>
