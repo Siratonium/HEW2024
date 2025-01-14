@@ -1,0 +1,49 @@
+<header id="header_wrapper">
+    <div id="logo">
+        <a href="/"><h1 id="logo_img">ロゴ</h1></a>
+    </div>
+    <nav id="header_nav">
+        <li class="function">
+            <a href="/">
+                <button>HOME</button>
+            </a>
+        </li>
+        <li class="function">
+            <form action="/sub" method="post">
+                <input type="hidden" name="page" value="<%= page %>">
+                <button type="submit" name="subsc" value="1">会員登録</button>
+            </form>
+            <% if (typeof view === "undefined") {view = false} %>
+            <% if (view) {%>
+                <%- include("login", {page: page})%>
+            <%} %>
+        </li>
+        <li class="function">
+                <button value="2"><a href="/">ログイン</a></button>
+                <!-- モーダル -->
+        </li>
+        <li class="function">
+            <a href="">
+                <button>買い物かご</button>
+                <!-- ページ遷移 -->
+            </a>
+        </li>
+        <li class="function">
+            <a href="">
+                <button>お気に入り</button>
+                <!-- ページ遷移 -->
+            </a>
+        </li>
+        <li class="function">
+            <a href="">
+                <button>お会計</button>
+            </a>
+        </li>
+        <li class="function">
+            <a href="">
+                <button>検索</button>
+                <!-- ページ遷移 -->
+            </a>
+        </li>
+    </nav>
+</header>

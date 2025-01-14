@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>test</title>
+</head>
+<body>
+    <h1>HEW2024 Group3</h1>
+    <h2>データ検索ページ</h2>
+
+    <form action="/search">
+        <p>検索</p>
+        <input type="text" name="data" value="<%= data %>">
+        <input type="submit" value="検索">
+    </form>
+    <table>
+        <tr>
+            <td><%= id %></td><td><%= name %></td>
+        </tr>
+    </table>
+    <a href="/">TOPページ</a>
+</body>
+</html>

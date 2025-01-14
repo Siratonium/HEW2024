@@ -1,0 +1,27 @@
+<% registration = true %>
+<% login = true %>
+<% if (output == "registration") {%>
+    <% login = false %>
+<% }else if (output == "login") {%>
+    <% registration = false %>
+<% } %>
+<div id="sing_view">
+    <div id="sing">
+        <nav id="tab">
+            <li class=<%- registration ? "tab" : "'tab fal'"%> id="registration"><h2>会員登録</h2></li>
+            <li class=<%- login ? "tab" : "'tab fal'" %> id="login"><h2>ログイン</h2></li>
+        </nav>
+        <!-- 会員登録 -->
+        <form class=<%- registration ? "sing" : "'sing off'" %> action="">
+            <h2>会員登録</h2>
+
+        </form>
+        <!-- ログイン -->
+         <form class=<%- login ? "sing" : "'sing off'" %> action="">
+            <h2>ログイン</h2>
+         </form>
+        
+        <% if (page == "index") {page = "/"} %>
+        <a id="back" href="<%= page %>">TOP</a>
+    </div>
+</div>

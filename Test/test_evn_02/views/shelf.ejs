@@ -1,0 +1,16 @@
+<%-include ("base") %>
+<%-include ("mainheader", {page: "Shelf"}) %>
+
+<main>
+    <h1>棚ページ</h1>
+    <div id="shelf_div">
+        <% for (let i=0; i<30; i++) {%>
+            <section class="product">商品<%= i+1 %></section>
+        <% } %>
+    </div>
+    <div id="cart_div">
+        <img id="cart_img" src="img/noimage.png" alt="かごの画像">
+    </div>
+</main>
+
+<%-include ("footer", {page: "Shelf"})  %>

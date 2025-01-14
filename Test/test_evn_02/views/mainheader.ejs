@@ -1,0 +1,41 @@
+<% if (typeof view == "undefined") {view = false}%>
+<% if (typeof output == "undefined") {output = null}%>
+
+<header>
+    <div class="header_wrapper">
+        <a href="/"><img class="header_img" src="img/noimage.png" alt="仮logo(h1文言付け加える)"></a>
+        <nav>
+            <ul>
+                <li class="hover_menu"><a href="">駄菓子を探す<span>▼</span></a>
+                    <ul>
+                        <li><a href="">1</a></li>
+                        <li><a href="">2</a></li>
+                        <li><a href="">3</a></li>
+                    </ul>
+                </li>
+                <li class="menu_icon">
+                    <form class="icon" action="/Favorite" method="post">
+                         <button type="submit" class="icon_btn fa-regular fa-heart"></button>
+                    </form>
+                    <form class="icon" action="/Cart" method="post">
+                        <button class="icon_btn fa-solid fa-cart-shopping" type="submit"></button>
+                    </form>
+                    <form class="icon" action="/Sign" method="post">
+                        <input type="hidden" name="page" value="<%= page %>">
+                        <input type="hidden" name="output" value="login">
+                        <button class="icon_btn fa-solid fa-arrow-right-to-bracket" type="submit"></button>
+                    </form>
+                    <form class="icon" action="/Sign" method="post">
+                        <input type="hidden" name="page" value="<%= page %>">
+                        <input type="hidden" name="output" value="registration">
+                        <button class="icon_btn fa-solid fa-user-plus" type="submit"></button>
+                    </form>
+                </li>
+                <% if (view) {%>
+                    <%-include ("sign", {page: page, output: output})%>
+                <% } %>
+            </a>
+            </ul>
+        </nav>
+    </div>
+</header>

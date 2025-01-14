@@ -1,0 +1,65 @@
+<section class="forms-section">
+    <div id="prev">
+        <% if ( page === "index") {%>
+            <%  page = "/" %>
+        <% } %>
+        <a href="<%- page %>"><span id="prev_btn">×</span></a>
+    </div>
+    <div class="forms">
+        <div class="form-wrapper is-active">
+            <button type="button" class="switcher switcher-login">
+                Login
+                <span class="underline"></span>
+            </button>
+            <form class="form form-login">
+                <div class="cover"></div>
+                <fieldset>
+                    <h3>ユーザー名</h3>
+                    <input type="text" name="username" id="in_name" placeholder="ユーザー名">
+                    <h3>パスワード</h3>
+                    <input type="password" id="in_password" placeholder="パスワード">
+                </fieldset>
+                <button type="submit" class="btn-login">Login</button>
+            </form>
+        </div>
+        <div class="form-wrapper">
+            <button type="button" class="switcher switcher-signup">
+                Sign Up
+                <span class="underline"></span>
+            </button>
+            <form class="form form-signup">
+                <div class="cover hide"></div>
+                <fieldset>
+                    <h3>ユーザー名</h3>
+                    <input type="text" name="username" id="up_name" placeholder="ユーザー名">
+                    <input type="password" id="up_password" placeholder="パスワード">
+                    <input type="password" id="up_password_check" placeholder="パスワード確認">
+                </fieldset>
+                <button type="submit" class="btn-signup">Continue</button>
+            </form>
+        </div>
+    </div>
+</section>
+    <script>
+        const switchers = [...document.querySelectorAll('.switcher')]
+        switchers.forEach(item => {
+            item.addEventListener('click', function() {
+                switchers.forEach(item => {
+                    item.parentElement.classList.remove('is-active')
+                    item.parentElement.classList.add('not-active')
+                })
+                this.parentElement.classList.add('is-active')
+                this.parentElement.classList.remove('not-active')
+                const cover_on = document.getElementsByClassName("not-active")[0].children[1].children[0]
+                const cover_off = document.getElementsByClassName("is-active")[0].children[1].children[0]
+                cover_on.classList.add("hide")
+                cover_off.classList.remove("hide")
+            })
+        })
+        const cover = [...document.querySelectorAll('.cover')]
+        cover.forEach(item => {
+            item
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<div id="login_wrapper">
+
+    <form id="login_form" action="/subsc" method="post">
+        <h2>会員登録</h2>
+        <table>
+            <tr><td>名前</td></tr>
+            <tr><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td>メールアドレス</td></tr>
+            <tr><td><input type="email" name="" id=""></td></tr>
+            <tr><td>パスワード</td></tr>
+            <tr><td><input type="password" name="" id=""></td></tr>
+            <tr><td>パスワード確認</td></tr>
+            <tr><td><input type="password" name="" id=""></td></tr>
+            <tr><td>郵便番号</td></tr>
+            <tr><td><input type="text" name=""></td></tr>
+            <tr><td>住所</td></tr>
+            <tr><td><input type="text" name="" id=""></td></tr>
+            <input type="hidden" name="page" value="<%= page %>">
+        </table>
+        <button type="submit" class="log_btn" id="subsc" name="subsc" value="1">登録</button>
+        <button type="submit" class="log_btn" id="cxl" name="subsc" value="0">キャンセル</button>
+    </form>
+
+</div>

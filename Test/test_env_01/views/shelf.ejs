@@ -1,0 +1,14 @@
+<%- include ("body_start") %>
+<%- include ("header", {page: "shelf"}) %>
+
+<main id="main_wrapper">
+    <h1>棚ページ</h1>
+    <div id="product_base">
+        <% for (let i=0; i<4; i++) {%>
+            <div class="product"><h2><%= `商品${i}` %></h2></div>
+        <% } %>
+    </div>
+</main>
+
+<%- include ("footer") %>
+<%- include ("body_end") %>

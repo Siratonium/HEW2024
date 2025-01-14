@@ -1,0 +1,32 @@
+<% if (typeof view == "undefined") {view = false}%>
+<% if (typeof output == "undefined") {output = null}%>
+
+<header>
+    <nav>
+        <img id="logo" src="img/noimage.png" alt="logo">
+        <li>機能一覧</li>
+        <form action="/Sign" method="post">
+            <!-- モーダル -->
+            <input type="hidden" name="page" value="<%= page %>">
+            <input type="hidden" name="output" value="registration">
+            <button type="submit">会員登録</button>
+        </form>
+        <form action="/Sign" method="post">
+            <!-- モーダル -->
+            <input type="hidden" name="page" value="<%= page %>">
+            <input type="hidden" name="output" value="login">
+            <button type="submit">ログイン</button>
+        </form>
+        <% if (view) {%>
+            <%-include ("sign", {page: page, output: output})%>
+        <% } %>
+        <form action="/Favorite" method="post">
+            <!-- ページ -->
+            <button type="submit">お気に入り</button>
+        </form>
+        <form action="/Cart" method="post">
+            <!-- ページ -->
+            <button type="submit">買い物かご</button>
+        </form>
+    </nav>
+</header>
