@@ -2,8 +2,11 @@ const express = require("express")
 const sqlite = require("sqlite3")
 const bodyParser = require("body-parser")
 const { render } = require("ejs")
-// import { controleDatabase } from "./lib/ctrldb.js"
 
+const db = new sqlite.Database("hew.db")
+db.serialize(
+    
+)
 
 const app = express()
 // const port = 3000
