@@ -1,0 +1,70 @@
+<%-include ("base") %>
+<% if (FormData) {%>
+    <li>aaa</li>
+<% } %>
+<main>
+    <h1>会員登録</h1>
+    <form action="/Signup" method="post">
+        <!-- 基本情報 -->
+        <div class="signup_block">
+            <h2>基本情報</h2>
+            <p>名前</p>
+            <input type="text" name="user_name" value="" placeholder="ex) 山田　太郎">
+            <span><%- ErrorString["user_name"] %></span>
+
+            <p>メールアドレス</p>
+            <input type="email" name="user_mail" value="" placeholder="ex) sample@xxx.com">
+            <span><%- ErrorString["user_mail"] %></span>
+
+        </div>
+        <!-- ユーザ情報 -->
+        <div class="signup_block">
+            <h2>ユーザ情報</h2>
+            <p>ユーザ名</p>
+            <input type="text" name="user_id" value="" placeholder="ex) Kohirudou">
+            <span><%- ErrorString["user_id"] %></span>
+
+            <p>パスワード</p>
+            <input type="password" name="password">
+            <span><%- ErrorString["password"] %></span>
+
+            <p>パスワード確認</p>
+            <input type="password" name="C_password" value="" placeholder="上記と同じパスワードを入力">
+            <span><%- ErrorString["C_password"] %></span>
+
+        <!-- 住所 -->
+        <div class="signup_block">
+            <h2>住所</h2>
+            <p>国</p>
+            <input type="text" name="contry" value="" placeholder="ex) 日本">
+            <span><%- ErrorString["contry"] %></span>
+
+
+            <p>郵便番号</p>
+            <input type="text" name="postcode" value="" placeholder="ex) 160-0023">
+            <span><%- ErrorString["postcode"] %></span>
+
+
+            <p>都道府県</p>
+            <input type="text" name="state" value="" placeholder="ex) 東京都">
+            <span><%- ErrorString["state"] %></span>
+
+            <p>市区町村</p>
+            <input type="text" name="city" value="" placeholder="ex) 新宿区西新宿">
+            <span><%- ErrorString["city"] %></span>
+
+
+            <p>丁目・番地</p>
+            <input type="text" name="address_line1" value="" placeholder="ex) 1-7-3">
+            <span><%- ErrorString["address_line1"] %></span>
+
+            <p>建物名・部屋番号等</p>
+            <input type="text" name="address_line2" value="" placeholder="ex) コクーンタワー30階">
+            <span><%- ErrorString["address_line2"] %></span>
+
+        </div>
+        <input type="submit" value="登録">
+        </form>
+        <a href="/">index</a>
+</main>
+<%-include ("footer")  %>
