@@ -27,12 +27,14 @@ app.use(session({
 
 // TOPページ
 app.get("/", (req, res)=> {
+    req.session.destroy()
     res.render("index")
 })
 
 // 会員登録フォーム
 // エラー文セット
 let ErrorString = {}
+let sessionCol = 0
 function initError(){
     ErrorString = {
         "user_name" : "",
@@ -50,17 +52,18 @@ function initError(){
 }
 app.get("/Signup", (req, res)=> {
     initError()
-    console.log(req.session.get("user_name"))
-    res.render("signup", {ErrorString: ErrorString})
+    res.render("signup", {ErrorString: ErrorString, session: req.session})
 })
 app.post("/Signup", (req, res)=> {
     initError()
     // フォーム情報取得
-    FormDataValue = req.body
     FormDataKeys = Object.keys(req.body)
     FormDataKeys.forEach(e => {
-        // セッションに保存
-        req.session[e] = req.body[e]
+        // セッションに保存(パスワード以外)
+        if (e != "password" || e != "C_password"){
+            req.session[e] = req.body[e]
+        }
+        // 未入力検査
         if (req.body[e] === ""){
             ErrorString[e] = "上記の項目が未入力です"
         }else{
@@ -70,21 +73,12 @@ app.post("/Signup", (req, res)=> {
                 
             // パスワード一致検査
             if(req.body["password"]!= req.body["C_password"]){
-                console.log(req.body["password"])
-                console.log(req.body["C_password"])
                 ErrorString["C_password"] = "パスワードが一致しません"
             }
         }
     })
-    res.render("signup", {ErrorString: ErrorString, FormData: req.session})
-
-
-    // let nullList = []
-    // let passwardError = false
-
-    // console.log(passwardError)
-    // let len = nullList.length
-    // res.render("signup", {PostIs: true, nullError: nullList, len: len, pwError: passwardError, data: req.body})
+    console.log(req.session)
+    res.render("signup", {ErrorString: ErrorString, session: req.session})
 })
 
 
