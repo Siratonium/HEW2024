@@ -17,39 +17,39 @@ DB.serialize(function(){
     DB.exec(`drop table if exists detail;`)
     DB.exec(`create table user(
         user_number integer primary key autoincrement,
-        user_id varchra(6),
+        user_id varchra(10) unique,
         user_name varchra(50),
-        email varchara(100),
+        email varchara(100) unique,
         password varchara(100),
         address text,
         registration_at date(10)
         );`)
     DB.exec(`create table cart(
-        cart_id varchra(6) primary key,
-        user_number varchra(6),
+        cart_id varchra(10) primary key,
+        user_number varchra(10),
         created_at date(10),
         foreign key (user_number) references user (user_number)
         )`)
     DB.exec(`create table cart_item(
-        cart_item_id varchra(6) primary key,
-        cart_id varchra(6),
-        product_id varchra(6),
+        cart_item_id varchra(10) primary key,
+        cart_id varchra(10),
+        product_id varchra(10),
         quantity integer,
         foreign key (cart_id) references cart (cart_id),
         foreign key (product_id) references product (product_id)
         )`)
     DB.exec(`create table accounting(
-        accounting_id varchra(6) primary key,
-        user_number varchra(6),
+        accounting_id varchra(10) primary key,
+        user_number varchra(10),
         total_amount integer,
         order_at date(10),
         status varchra(5),
         foreign key (user_number) references user (user_number)
         )`)
     DB.exec(`create table detail(
-        detail_id varchra(6) primary key,
-        accounting_id varchra(6),
-        product_id varchra(6),
+        detail_id varchra(10) primary key,
+        accounting_id varchra(10),
+        product_id varchra(10),
         quantity integer,
         foreign key (accounting_id) references accounting (accounting_id),
         foreign key (product_id) references product (product_id)
@@ -63,7 +63,7 @@ fs.createReadStream("Product.csv").pipe(csv.parse({columns: true}, (err, result)
     DB.serialize(function(){
         DB.exec(`drop table if exists product;`)
         DB.exec(`create table product(
-            product_id varchra(6) primary key,
+            product_id varchra(10) primary key,
             product_name varchra(30),
             fee integer,
             stock integer,
@@ -90,8 +90,8 @@ fs.createReadStream("description.csv").pipe(csv.parse({columns: true}, (err, res
     DB.serialize(function(){
         DB.exec(`drop table if exists description;`)
         DB.exec(`create table description(
-            description_id varchra(6) primary key,
-            product_id varchra(6),
+            description_id varchra(10) primary key,
+            product_id varchra(10),
             manufacturer varchra(30),
             weight integer,
             content text,

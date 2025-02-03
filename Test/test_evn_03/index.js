@@ -2,11 +2,14 @@ const express = require("express")
 const sqlite = require("sqlite3")
 const bodyParser = require("body-parser")
 const session = require("express-session")
-
+const moment = require("moment")
+const currentTime = moment()
+const today = currentTime.format("YYYY-MM-DD")
 
 const app = express()
 // const port = 3000
 const port = 80
+
 app.set("view engine", "ejs")
 app.use(express.static("public"))
 app.use(express.urlencoded({
@@ -23,7 +26,7 @@ app.use(session({
     }
 }))
 
-
+const DB = new sqlite.Database("hew.db")
 
 // TOPページ
 app.get("/", (req, res)=> {
@@ -32,7 +35,6 @@ app.get("/", (req, res)=> {
 })
 
 // 会員登録フォーム
-// エラー文セット
 let ErrorString = {}
 let sessionCol = 0
 function initError(){
@@ -52,10 +54,11 @@ function initError(){
 }
 app.get("/Signup", (req, res)=> {
     initError()
-    res.render("signup", {ErrorString: ErrorString, session: req.session})
+    return res.render("signup", {ErrorString: ErrorString, session: req.session})
 })
 app.post("/Signup", (req, res)=> {
     initError()
+    let error = false
     // フォーム情報取得
     FormDataKeys = Object.keys(req.body)
     FormDataKeys.forEach(e => {
@@ -66,6 +69,7 @@ app.post("/Signup", (req, res)=> {
         // 未入力検査
         if (req.body[e] === ""){
             ErrorString[e] = "上記の項目が未入力です"
+            error = true
         }else{
 
             // 入力値検査
@@ -74,15 +78,55 @@ app.post("/Signup", (req, res)=> {
             // パスワード一致検査
             if(req.body["password"]!= req.body["C_password"]){
                 ErrorString["C_password"] = "パスワードが一致しません"
+                error = true
             }
         }
     })
-    console.log(req.session)
-    res.render("signup", {ErrorString: ErrorString, session: req.session})
+    if (error) {
+        return res.render("signup", {ErrorString: ErrorString, session: req.session})
+    }else{
+        const address = req.body.postcode&" "&req.body.state&" "&req.body.city&" "&req.body.address_line1&" "&req.body.address_line2
+        DB.serialize(function(){
+            DB.run(`insert into user
+                (user_id, user_name, email, password, address, registration_at)
+                values
+                ($user_id, $user_name, $email, $password, $address, $registration_at);`,{
+                    $user_id: req.body.user_id,
+                    $user_name: req.body.user_name,
+                    $email: req.body.user_mail,
+                    $password: req.body.password,
+                    $address: address,
+                    $registration_at: today
+                },(err)=>{
+                // 既存のユーザではないか検査
+                    if (err == null){
+                        return res.render("signup_comp")
+                    }else if(err.errno == 19){
+                        const errRow = err.message.split(" ")[err.message.split(" ").length - 1]
+                        if (errRow == "user.email"){
+                            ErrorString["user_mail"] = "すでに登録されているメールアドレスです。"
+                            req.session["user_mail"] = ""
+                        }else if(errRow == "user.user_id"){
+                            ErrorString["user_id"] = "すでに登録されているユーザ名です。"
+                            req.session["user_id"] = ""
+                        }
+                        return res.render("signup", {ErrorString: ErrorString, session: req.session})
+                    }else{
+                        return res.render("signup_comp")
+
+                    }
+                })
+        })
+    }
+})
+
+// ログインシステム
+app.get("/Login", (req, res) => {
+    return res.render("login")
 })
 
 
 
 app.listen(port, ()=>{
     console.log(`Open port ${port}`)
-})  
+})
