@@ -1,0 +1,50 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+/* 登録画面 */
+.signup_block{
+    width: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+.signup_block h2{
+    width: 100%;
+}
+.signup_block p{
+    width: 40%;
+    margin: 10px 0;
+}
+.signup_block p::after{
+    content: "*";
+    font-size: 10px;
+    color: red;
+}
+.signup_block input{
+    width: 50%;
+    margin: 10px 0;
+}
+.signup_block span{
+    width: 100%;
+    color: red;
+    font-size: 12px;
+}
+
+/* ログイン画面 */
+.login_block{
+    width: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+.login_block p{
+    width: 100%;
+    margin: 5px 0;
+    text-align: left;
+}
+.login_block input{
+    width: 50%;
+    margin: 10px 200px 5px auto;
+    text-align: right;
+}
