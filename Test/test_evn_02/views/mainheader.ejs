@@ -13,7 +13,7 @@
                         <li><a href="">3</a></li>
                     </ul>
                 </li>
-                <li class="menu_icon">
+                <!-- <li class="menu_icon"> -->
                     <form class="icon" action="/Favorite" method="post">
                          <button type="submit" class="icon_btn fa-regular fa-heart"></button>
                     </form>
@@ -30,7 +30,7 @@
                         <input type="hidden" name="output" value="registration">
                         <button class="icon_btn fa-solid fa-user-plus" type="submit"></button>
                     </form>
-                </li>
+                <!-- </li> -->
                 <% if (view) {%>
                     <%-include ("sign", {page: page, output: output})%>
                 <% } %>
