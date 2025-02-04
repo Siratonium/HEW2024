@@ -9,6 +9,10 @@
     flex-wrap: wrap;
     padding: 10px;
 }
+.signup_block select{
+    width: 85px;
+    height: 30px;
+}
 .signup_block h2{
     width: 100%;
 }
@@ -41,10 +45,8 @@
 .login_block p{
     width: 100%;
     margin: 5px 0;
-    text-align: left;
 }
 .login_block input{
     width: 50%;
     margin: 10px 200px 5px auto;
-    text-align: right;
 }

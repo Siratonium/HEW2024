@@ -5,6 +5,9 @@ const session = require("express-session")
 const moment = require("moment")
 const currentTime = moment()
 const today = currentTime.format("YYYY-MM-DD")
+const nowYear = currentTime.format("YYYY")
+
+console.log(nowYear)
 
 const app = express()
 // const port = 3000
@@ -44,7 +47,6 @@ function initError(){
         "user_id" : "",
         "password" : "",
         "C_password" : "",
-        "contry" : "",
         "postcode" : "",
         "state" : "",
         "city" : "",
@@ -54,7 +56,7 @@ function initError(){
 }
 app.get("/Signup", (req, res)=> {
     initError()
-    return res.render("signup", {ErrorString: ErrorString, session: req.session})
+    return res.render("signup", {ErrorString: ErrorString, session: req.session, nowYear: nowYear})
 })
 app.post("/Signup", (req, res)=> {
     initError()
@@ -83,16 +85,18 @@ app.post("/Signup", (req, res)=> {
         }
     })
     if (error) {
-        return res.render("signup", {ErrorString: ErrorString, session: req.session})
+        return res.render("signup", {ErrorString: ErrorString, session: req.session, nowYear: nowYear})
     }else{
-        const address = req.body.postcode&" "&req.body.state&" "&req.body.city&" "&req.body.address_line1&" "&req.body.address_line2
+        const address = req.body.postcode+" "+req.body.state+" "+req.body.city+" "+req.body.address_line1+" "+req.body.address_line2
+        const birthday = req.body.birth_year+"-"+req.body.birth_month+"-"+req.body.birth_day
         DB.serialize(function(){
             DB.run(`insert into user
-                (user_id, user_name, email, password, address, registration_at)
+                (user_id, user_name, birthday, email, password, address, registration_at)
                 values
-                ($user_id, $user_name, $email, $password, $address, $registration_at);`,{
+                ($user_id, $user_name, $birthday, $email, $password, $address, $registration_at);`,{
                     $user_id: req.body.user_id,
                     $user_name: req.body.user_name,
+                    $birthday: birthday,
                     $email: req.body.user_mail,
                     $password: req.body.password,
                     $address: address,
@@ -100,6 +104,7 @@ app.post("/Signup", (req, res)=> {
                 },(err)=>{
                 // 既存のユーザではないか検査
                     if (err == null){
+                        console.log("登録完了")
                         return res.render("signup_comp")
                     }else if(err.errno == 19){
                         const errRow = err.message.split(" ")[err.message.split(" ").length - 1]
@@ -110,10 +115,7 @@ app.post("/Signup", (req, res)=> {
                             ErrorString["user_id"] = "すでに登録されているユーザ名です。"
                             req.session["user_id"] = ""
                         }
-                        return res.render("signup", {ErrorString: ErrorString, session: req.session})
-                    }else{
-                        return res.render("signup_comp")
-
+                        return res.render("signup", {ErrorString: ErrorString, session: req.session, nowYear: nowYear})
                     }
                 })
         })

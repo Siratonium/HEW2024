@@ -9,6 +9,19 @@
             <input type="text" name="user_name" value="<%- session.user_name %>" placeholder="ex) 山田　太郎">
             <span><%- ErrorString["user_name"] %></span>
 
+            <p>生年月日</p>
+            <select name="birth_year" id="year">
+                <% for (let i = 1950; i <= nowYear; i++) {%>
+                    <option value="<%- i %>"><%- i %>年</option>
+                <% } %>
+            </select>
+            <select name="birth_month" id="month">
+                <% for (let i = 1; i <= 12; i++) {%>
+                    <option value="<%- i %>"><%- i %>月</option>
+                <% } %>
+            </select>
+            <select name="birth_day" id="day"></select>
+
             <p>メールアドレス</p>
             <input type="email" name="user_mail" value="<%- session.user_mail %>" placeholder="ex) sample@xxx.com">
             <span><%- ErrorString["user_mail"] %></span>
@@ -32,10 +45,6 @@
         <!-- 住所 -->
         <div class="signup_block">
             <h2>住所</h2>
-            <p>国</p>
-            <input type="text" name="contry" value="<%- session.contry %>" placeholder="ex) 日本">
-            <span><%- ErrorString["contry"] %></span>
-
 
             <p>郵便番号</p>
             <input type="text" name="postcode" value="<%- session.postcode %>" placeholder="ex) 160-0023">
@@ -64,4 +73,43 @@
         </form>
         <a href="/">TOPページへ</a>
 </main>
+<script>
+    let month = document.getElementById("month")
+    let days = document.getElementById("day")
+    month.addEventListener("change", (e)=> {
+        if (e.target.value == 2){
+            daysOption(28)
+        }else if (e.target.value == 3 | e.target.value == 5){
+            daysOption(31)
+        }else if (e.target.value == 10 | e.target.value == 12){
+            daysOption(31)
+        }else if (e.target.value == 4 | e.target.value == 6){
+            daysOption(30)
+        }else if (e.target.value == 9 | e.target.value == 11){
+            daysOption(30)
+        }else if (e.target.value == 1){
+            daysOption(31)
+        }
+    })
+    function daysOption (max) {
+        let options = days.children
+        console.log(options)
+        if (options.length != 0){
+            for (let i = 0; i < options.length; i+1){
+                days.removeChild(options[i])
+            }
+            console.log(days)
+        }
+        for (let i = 1; i <= max; i++){
+            let option = document.createElement("option")
+            option.value = i
+            option.textContent = `${i}日`
+            days.appendChild(option) 
+        }
+    }
+    daysOption(31)
+
+
+
+</script>
 <%-include ("footer")  %>

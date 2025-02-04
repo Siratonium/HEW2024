@@ -19,6 +19,7 @@ DB.serialize(function(){
         user_number integer primary key autoincrement,
         user_id varchra(10) unique,
         user_name varchra(50),
+        birthday date(10),
         email varchara(100) unique,
         password varchara(100),
         address text,
