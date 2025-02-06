@@ -4,11 +4,13 @@
     <form action="/Login" method="post">
         <div class="login_block">
             <p>ユーザ名もしくはメールアドレス</p>
-            <input type="text">
+            <input type="text" name="user_name">
             <p>パスワード</p>
-            <input type="password">
+            <input type="password" name="password">
+            <p><%- session.login %></p>
         </div>
         <input type="submit" value="ログイン">
     </form>
+    <a href="/">TOPページ</a>
 </main>
-<%-include ("footer")  %>
+<%-include ("footer") %>

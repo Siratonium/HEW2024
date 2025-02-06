@@ -6,8 +6,9 @@ const moment = require("moment")
 const currentTime = moment()
 const today = currentTime.format("YYYY-MM-DD")
 const nowYear = currentTime.format("YYYY")
+const bcrypt = require("bcrypt")
+const { render } = require("ejs")
 
-console.log(nowYear)
 
 const app = express()
 // const port = 3000
@@ -33,13 +34,12 @@ const DB = new sqlite.Database("hew.db")
 
 // TOPページ
 app.get("/", (req, res)=> {
-    req.session.destroy()
-    res.render("index")
+    console.log(req.session)
+    res.render("index", {session: req.session})
 })
 
-// 会員登録フォーム
+// 会員登録システム
 let ErrorString = {}
-let sessionCol = 0
 function initError(){
     ErrorString = {
         "user_name" : "",
@@ -89,45 +89,71 @@ app.post("/Signup", (req, res)=> {
     }else{
         const address = req.body.postcode+" "+req.body.state+" "+req.body.city+" "+req.body.address_line1+" "+req.body.address_line2
         const birthday = req.body.birth_year+"-"+req.body.birth_month+"-"+req.body.birth_day
-        DB.serialize(function(){
-            DB.run(`insert into user
-                (user_id, user_name, birthday, email, password, address, registration_at)
-                values
-                ($user_id, $user_name, $birthday, $email, $password, $address, $registration_at);`,{
-                    $user_id: req.body.user_id,
-                    $user_name: req.body.user_name,
-                    $birthday: birthday,
-                    $email: req.body.user_mail,
-                    $password: req.body.password,
-                    $address: address,
-                    $registration_at: today
-                },(err)=>{
-                // 既存のユーザではないか検査
-                    if (err == null){
-                        console.log("登録完了")
-                        return res.render("signup_comp")
-                    }else if(err.errno == 19){
-                        const errRow = err.message.split(" ")[err.message.split(" ").length - 1]
-                        if (errRow == "user.email"){
-                            ErrorString["user_mail"] = "すでに登録されているメールアドレスです。"
-                            req.session["user_mail"] = ""
-                        }else if(errRow == "user.user_id"){
-                            ErrorString["user_id"] = "すでに登録されているユーザ名です。"
-                            req.session["user_id"] = ""
-                        }
-                        return res.render("signup", {ErrorString: ErrorString, session: req.session, nowYear: nowYear})
-                    }
+        bcrypt.hash(req.body.password, 1)
+            .then((hashedpassword) => {
+                DB.serialize(function(){
+                    DB.run(`insert into user
+                        (user_id, user_name, birthday, email, password, address, registration_at)
+                        values
+                        ($user_id, $user_name, $birthday, $email, $password, $address, $registration_at);`,{
+                            $user_id: req.body.user_id,
+                            $user_name: req.body.user_name,
+                            $birthday: birthday,
+                            $email: req.body.user_mail,
+                            $password: hashedpassword,
+                            $address: address,
+                            $registration_at: today
+                        },(err)=>{
+                        // 既存のユーザではないか検査
+                            if (err == null){
+                                console.log("登録完了")
+                                return res.render("signup_comp")
+                            }else if(err.errno == 19){
+                                const errRow = err.message.split(" ")[err.message.split(" ").length - 1]
+                                if (errRow == "user.email"){
+                                    ErrorString["user_mail"] = "すでに登録されているメールアドレスです。"
+                                    req.session["user_mail"] = ""
+                                }else if(errRow == "user.user_id"){
+                                    ErrorString["user_id"] = "すでに登録されているユーザ名です。"
+                                    req.session["user_id"] = ""
+                                }
+                                return res.render("signup", {ErrorString: ErrorString, session: req.session, nowYear: nowYear})
+                            }
+                        })
                 })
-        })
+            })
+
     }
 })
 
 // ログインシステム
 app.get("/Login", (req, res) => {
-    return res.render("login")
+    return res.render("login", {session: req.session})
 })
-
-
+app.post("/Login", (req, res) => {
+    // ユーザ名検索
+    const userName = req.body.user_name
+    let user_id = "a"
+    let password = "b"
+    DB.serialize(function(){
+        DB.get(`select user_id, password
+            from user
+            where user_id = $userName`, {
+            $userName : userName
+        },(err, row)=>{
+            bcrypt.compare(req.body.password, row.password)
+                .then((result)=>{
+                    if(result){
+                        req.session.login = userName
+                        return res.render("login", {session: req.session})
+                    }else{
+                        req.session.login = "ログイン失敗"
+                        return res.render("login", {session: req.session})
+                    }
+                })
+        })
+    })
+})
 
 app.listen(port, ()=>{
     console.log(`Open port ${port}`)
