@@ -133,15 +133,15 @@ app.get("/Login", (req, res) => {
 app.post("/Login", (req, res) => {
     // ユーザ名検索
     const userName = req.body.user_name
-    let user_id = "a"
-    let password = "b"
     DB.serialize(function(){
         DB.get(`select user_id, password
             from user
             where user_id = $userName`, {
             $userName : userName
         },(err, row)=>{
-            bcrypt.compare(req.body.password, row.password)
+            console.log(row)
+            if(row){
+                bcrypt.compare(req.body.password, row.password)
                 .then((result)=>{
                     if(result){
                         req.session.login = userName
@@ -151,6 +151,10 @@ app.post("/Login", (req, res) => {
                         return res.render("login", {session: req.session})
                     }
                 })
+            }else{
+                req.session.login = "ユーザ名が見つかりません"
+                return res.render("login", {session: req.session})
+            }
         })
     })
 })
