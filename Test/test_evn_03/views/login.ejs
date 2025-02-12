@@ -4,10 +4,10 @@
     <form action="/Login" method="post">
         <div class="login_block">
             <p>ユーザ名もしくはメールアドレス</p>
-            <input type="text" name="user_name">
+            <input type="text" name="user_input">
             <p>パスワード</p>
             <input type="password" name="password">
-            <p><%- session.login %></p>
+            <p>状態：<%- session.login ? "ログイン済み" : "未ログイン" %></p>
         </div>
         <input type="submit" value="ログイン">
     </form>
