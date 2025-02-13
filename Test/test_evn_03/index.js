@@ -45,6 +45,8 @@ app.get("/", (req, res)=> {
 })
 // 棚ページ
 let productNo = 0
+let next = true
+let prev = false
 app.get("/Shelf", (req, res) => {
     // 商品データの取得
     DB.all(`select * from product;`, (err, row) => {
@@ -52,8 +54,8 @@ app.get("/Shelf", (req, res) => {
             console.log(err)
         }else{
             if(row){
-                console.log(row)
-                return res.render("shelf", {rows: row, productNo: productNo}) 
+                console.log(productNo)
+                return res.render("shelf", {rows: row, productNo: productNo, next: next, prev: prev}) 
             }
         }
     })
@@ -61,25 +63,28 @@ app.get("/Shelf", (req, res) => {
 app.get("/Shelf/next", (req, res) => {
     DB.all(`select * from product;`, (err, row) => {
         if(row){
-            if(productNo > row.length){
-                productNo = 0
-                return res.redirect("/Shelf")
-            }
             productNo += 30
+            if(productNo + 30 >= row.length){
+                next = false
+            }
+            prev = true
             return res.redirect("/Shelf")
+
         }
     })
 })
 app.get("/Shelf/prev", (req, res) => {
     productNo -= 30
-    if (productNo < 0){
+    if (productNo <= 0){
         productNo = 0
+        prev = false
+        next = true
     }
     return res.redirect("/Shelf")
 })
 // カゴページ
 app.get("/Cart", (req, res) => {
-    
+
 })
 
 
