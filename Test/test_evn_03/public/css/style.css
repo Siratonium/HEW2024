@@ -1,6 +1,8 @@
 *{
     margin: 0;
     padding: 0;
+    list-style: none;
+    box-sizing: border-box;
 }
 /* 登録画面 */
 .signup_block{
@@ -49,4 +51,23 @@
 .login_block input{
     width: 50%;
     margin: 10px 200px 5px auto;
+}
+/* 棚 */
+.product{
+    width: calc(100% / 10 - 2px);
+    aspect-ratio: 1/1;
+    border: 1px solid #000;
+}
+#product_block{
+    width: 90%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+}
+#product_ctrl{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
 }

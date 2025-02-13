@@ -5,15 +5,15 @@
         <li><a href="/Check">会計</a>：未実装</li>
         <li><a href="/Poster">ポスター</a>：未実装</li>
         <li><a href="/Shelf">棚</a>：未実装</li>
+        <!-- ログイン状態確認用 -->
         <li><%- session.login ? session.login : "ログインしてください" %></li>
-
         <% if (session.login) {%>
-            <li><a href="">マイページ</a>：未実装</li>
-            <li><a href="/Logout">ログアウト</a>：実装済み</li>
+            <li><a href="">☆マイページ</a>：未実装</li>
+            <li><a href="/Logout">☆ログアウト</a>：実装済み</li>
         <% }else{ %>
-            <li><a href="/Login">ログイン</a>：実装済み</li>
+            <li><a href="/Login">☆ログイン</a>：実装済み</li>
             <li>ユーザ名、メールアドレスどちらでもログイン可</li>
-            <li><a href="/Signup">会員登録</a>：実装済み（DB連携済み</li>
+            <li><a href="/Signup">☆会員登録</a>：実装済み（DB連携済み</li>
             <li>TOPページに戻った際にセッション内容を削除</li>
             <li>パスワードハッシュ化済み</li>
             <li>（正規化のみ未実装）</li>

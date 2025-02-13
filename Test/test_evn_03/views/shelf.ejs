@@ -1,0 +1,18 @@
+<%-include ("base") %>
+<h1>商品ページ</h1>
+<div id="product_ctrl">
+    <a href="/Shelf/prev">＜戻る</a>
+    <a href="/Shelf/next">次へ＞</a>
+</div>
+<!-- 商品一覧 -->
+<div id="product_block">
+    <% for (i = productNo; i < productNo + 30; i++) {%>
+        <div class="product">
+            <li><a href=""><%- rows[i] ? rows[i].product_name : "" %></a></li>
+        </div>
+    <% }; %>
+</div>
+<!-- カゴを表示 -->
+<li><a href="">買い物カゴ</a>：未実装</li>
+<a href="/">TOPページ</a>
+<%-include ("footer") %>
