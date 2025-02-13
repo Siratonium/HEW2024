@@ -7,12 +7,29 @@
 <!-- 商品一覧 -->
 <div id="product_block">
     <% for (i = productNo; i < productNo + 30; i++) {%>
-        <form action="/Shelf" class="product">
-            <input type="hidden" value="<%- rows[i] ? rows[i].product_id : "" %>">
-            <button type="submit"><%- rows[i] ? rows[i].product_name : "" %></button>
-        </form>
+        <div class="product">
+            <a href="Shelf/<%- rows[i] ? rows[i].product_id : "" %>">
+                <%- rows[i] ? rows[i].product_name : "" %>
+            </a>
+        </div>
     <% }; %>
 </div>
+<!-- 商品modal -->
+<% if (modal){ %>
+    <% for (i = 0; i < len; i++) {%>
+        <% if(rows[i].product_id == modal) {%>
+            <div id="puroduct_modal_wrap">
+                <div id="puroduct_modal">
+                    <a href="/Shelf/prev">閉じる</a>
+                    <li>商品名：<%- rows[i].product_name %></li>
+                    <li>値段：<%- rows[i].fee %></li>
+                    <li>在庫：<%- rows[i].stock %></li>
+                    <a href="">詳細を見る</a>
+                </div>
+            </div>
+        <% } %>
+    <% } %>
+<% } %>
 <!-- カゴを表示 -->
 <li><a href="">買い物カゴ</a>：未実装</li>
 <a href="/">TOPページ</a>

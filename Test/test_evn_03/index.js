@@ -47,21 +47,27 @@ app.get("/", (req, res)=> {
 let productNo = 0
 let next = true
 let prev = false
-app.get("/Shelf", (req, res) => {
-    // 商品データの取得
-    DB.all(`select * from product;`, (err, row) => {
+let modal = false
+DB.all("select * from product", (err, row) =>{
+    app.get("/Shelf", (req, res) => {
+        // 商品データの取得
         if(err){
             console.log(err)
         }else{
             if(row){
-                console.log(productNo)
-                return res.render("shelf", {rows: row, productNo: productNo, next: next, prev: prev}) 
+                console.log(modal)
+                return res.render("shelf", {
+                    rows: row,
+                    len: row.length,
+                    productNo: productNo,
+                    next: next,
+                    prev: prev,
+                    modal: modal
+                }) 
             }
         }
     })
-})
-app.get("/Shelf/next", (req, res) => {
-    DB.all(`select * from product;`, (err, row) => {
+    app.get("/Shelf/next", (req, res) => {
         if(row){
             productNo += 30
             if(productNo + 30 >= row.length){
@@ -69,18 +75,25 @@ app.get("/Shelf/next", (req, res) => {
             }
             prev = true
             return res.redirect("/Shelf")
-
         }
     })
-})
-app.get("/Shelf/prev", (req, res) => {
-    productNo -= 30
-    if (productNo <= 0){
-        productNo = 0
-        prev = false
-        next = true
+    app.get("/Shelf/prev", (req, res) => {
+        productNo -= 30
+        if (productNo <= 0){
+            productNo = 0
+            prev = false
+            next = true
+        }
+        modal = false
+        return res.redirect("/Shelf")
+    })
+    // 商品モーダル
+    for (let i = 0; i < row.length; i++){
+        app.get(`/Shelf/p_${i + 1}`, (req, res) => {
+            modal = `p_${i + 1}`
+            return res.redirect("/Shelf")
+        })
     }
-    return res.redirect("/Shelf")
 })
 // カゴページ
 app.get("/Cart", (req, res) => {

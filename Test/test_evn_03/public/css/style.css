@@ -71,3 +71,19 @@
     justify-content: space-between;
     padding: 20px;
 }
+/* 商品モーダル */
+#puroduct_modal_wrap{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#puroduct_modal{
+    width: 800px;
+    height: 450px;
+    background-color: #fff;
+}
