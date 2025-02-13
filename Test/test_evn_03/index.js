@@ -221,6 +221,15 @@ app.get("/Logout", (req, res)=> {
     req.session.login = false
     return res.redirect("/")    
 })
+// 3D画像表示
+app.get("/Cg", (req, res) => {
+    return res.render("cg")
+})
+
+
+
+
+
 app.listen(port, ()=>{
     console.log(`Open port ${port}`)
 })
