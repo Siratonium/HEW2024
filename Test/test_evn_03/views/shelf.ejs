@@ -1,0 +1,19 @@
+<%-include ("base") %>
+<h1>商品ページ</h1>
+<div id="product_ctrl">
+    <a href="/Shelf/prev"><%- prev ? "＜戻る" : "" %></a>
+    <a href="/Shelf/next"><%- next ? "次へ＞" : "" %></a>
+</div>
+<!-- 商品一覧 -->
+<div id="product_block">
+    <% for (i = productNo; i < productNo + 30; i++) {%>
+        <form action="/Shelf" class="product">
+            <input type="hidden" value="<%- rows[i] ? rows[i].product_id : "" %>">
+            <button type="submit"><%- rows[i] ? rows[i].product_name : "" %></button>
+        </form>
+    <% }; %>
+</div>
+<!-- カゴを表示 -->
+<li><a href="">買い物カゴ</a>：未実装</li>
+<a href="/">TOPページ</a>
+<%-include ("footer") %>

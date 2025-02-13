@@ -43,6 +43,57 @@ app.get("/", (req, res)=> {
     })
     res.render("index", {session: req.session})
 })
+// 棚ページ
+let productNo = 0
+let next = true
+let prev = false
+app.get("/Shelf", (req, res) => {
+    // 商品データの取得
+    DB.all(`select * from product;`, (err, row) => {
+        if(err){
+            console.log(err)
+        }else{
+            if(row){
+                console.log(productNo)
+                return res.render("shelf", {rows: row, productNo: productNo, next: next, prev: prev}) 
+            }
+        }
+    })
+})
+app.get("/Shelf/next", (req, res) => {
+    DB.all(`select * from product;`, (err, row) => {
+        if(row){
+            productNo += 30
+            if(productNo + 30 >= row.length){
+                next = false
+            }
+            prev = true
+            return res.redirect("/Shelf")
+
+        }
+    })
+})
+app.get("/Shelf/prev", (req, res) => {
+    productNo -= 30
+    if (productNo <= 0){
+        productNo = 0
+        prev = false
+        next = true
+    }
+    return res.redirect("/Shelf")
+})
+// カゴページ
+app.get("/Cart", (req, res) => {
+
+})
+
+
+
+
+
+
+
+
 
 // 会員登録システム
 let ErrorString = {}
@@ -65,7 +116,7 @@ app.get("/Signup", (req, res)=> {
     return res.render("signup", {ErrorString: ErrorString, session: req.session, nowYear: nowYear})
 })
 app.post("/Signup", (req, res)=> {
-    initError()
+    // initError()
     let error = false
     // フォーム情報取得
     FormDataKeys = Object.keys(req.body)
@@ -147,21 +198,19 @@ app.post("/Login", (req, res) => {
             where user_id = $userInput or email = $userInput`, {
             $userInput : userInput
         },(err, row)=>{
-            console.log(row)
             if(row){
                 bcrypt.compare(req.body.password, row.password)
                 .then((result)=>{
                     if(result){
-                        console.log(`内容:${row.user_id}`)
                         req.session.login = row.user_id
-                        return res.render("login", {session: req.session})
+                        return res.redirect("/")
                     }else{
-                        req.session.login = false
+                        req.session.loginErr = "ユーザ名、メールアドレスまたはパスワードが違います。"
                         return res.render("login", {session: req.session})
                     }
                 })
             }else{
-                req.session.login = false
+                req.session.loginErr = "ユーザ名、メールアドレスまたはパスワードが違います。"
                 return res.render("login", {session: req.session})
             }
         })
@@ -172,6 +221,15 @@ app.get("/Logout", (req, res)=> {
     req.session.login = false
     return res.redirect("/")    
 })
+// 3D画像表示
+app.get("/Cg", (req, res) => {
+    return res.render("cg")
+})
+
+
+
+
+
 app.listen(port, ()=>{
     console.log(`Open port ${port}`)
 })

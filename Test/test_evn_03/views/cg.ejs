@@ -1,0 +1,53 @@
+<!-- <h1>3D画像表示ページ</h1> -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>three.js</title>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.145/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.145/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  
+  
+  <style>
+    body{
+      background-color: rgb(214, 236, 255);
+    }
+    #hidden-element {
+      width: 80%;
+      height: 800px;
+      border: 8px solid #000000;
+      margin-top: 20px;
+      position: relative;
+    }
+
+    #hide {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50px;
+      height: 50px;
+      background-color: red;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ボタン追加　ID変えるのを忘れないように！！ -->
+  <button id="toggle-button">three.js 要素を非表示</button>
+  <button id="add-model-button">miniコーラ</button>
+  <button id="add-model-button-2">ポッキー</button> 
+  <button id="add-model-button-3">チョコベビー</button>
+  <button id="add-model-button-4">都こんぶ</button> 
+  <button id="add-model-button-5">a</button> 
+
+  <div id="hidden-element">
+    <div id="hide"></div>
+  </div>
+
+  <script src="..\public\js\three.js"></script>
+
+</body>
+</html>

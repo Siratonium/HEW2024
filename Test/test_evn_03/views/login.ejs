@@ -7,6 +7,8 @@
             <input type="text" name="user_input">
             <p>パスワード</p>
             <input type="password" name="password">
+            <!-- ログインエラー文 -->
+            <p><%- session.loginErr ? session.loginErr : "" %></p>
             <p>状態：<%- session.login ? "ログイン済み" : "未ログイン" %></p>
         </div>
         <input type="submit" value="ログイン">
