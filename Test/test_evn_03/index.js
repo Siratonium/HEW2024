@@ -34,7 +34,13 @@ const DB = new sqlite.Database("hew.db")
 
 // TOPページ
 app.get("/", (req, res)=> {
-    console.log(req.session)
+    // セッション内容処理
+    const sessionKeys = Object.keys(req.session)
+    sessionKeys.forEach(e => {
+        if ( e != "cookie" & e != "login"){
+            req.session[e] = ""
+        }
+    })
     res.render("index", {session: req.session})
 })
 
@@ -70,8 +76,10 @@ app.post("/Signup", (req, res)=> {
         }
         // 未入力検査
         if (req.body[e] === ""){
-            ErrorString[e] = "上記の項目が未入力です"
-            error = true
+            if(e != "address_line2"){
+                ErrorString[e] = "上記の項目が未入力です"
+                error = true
+            }
         }else{
 
             // 入力値検査
@@ -132,33 +140,38 @@ app.get("/Login", (req, res) => {
 })
 app.post("/Login", (req, res) => {
     // ユーザ名検索
-    const userName = req.body.user_name
+    const userInput = req.body.user_input
     DB.serialize(function(){
         DB.get(`select user_id, password
             from user
-            where user_id = $userName`, {
-            $userName : userName
+            where user_id = $userInput or email = $userInput`, {
+            $userInput : userInput
         },(err, row)=>{
             console.log(row)
             if(row){
                 bcrypt.compare(req.body.password, row.password)
                 .then((result)=>{
                     if(result){
-                        req.session.login = userName
+                        console.log(`内容:${row.user_id}`)
+                        req.session.login = row.user_id
                         return res.render("login", {session: req.session})
                     }else{
-                        req.session.login = "ログイン失敗"
+                        req.session.login = false
                         return res.render("login", {session: req.session})
                     }
                 })
             }else{
-                req.session.login = "ユーザ名が見つかりません"
+                req.session.login = false
                 return res.render("login", {session: req.session})
             }
         })
     })
 })
-
+// ログアウトシステム
+app.get("/Logout", (req, res)=> {
+    req.session.login = false
+    return res.redirect("/")    
+})
 app.listen(port, ()=>{
     console.log(`Open port ${port}`)
 })
