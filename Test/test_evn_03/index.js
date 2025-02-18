@@ -48,45 +48,52 @@ let productNo = 0
 let next = true
 let prev = false
 let modal = false
-DB.all("select * from product", (err, row) =>{
-    app.get("/Shelf", (req, res) => {
-        // 商品データの取得
-        if(err){
-            console.log(err)
-        }else{
+DB.all(`select * 
+    from product 
+    join
+    description 
+    on 
+    product.product_id = description.product_id`,
+    (err, row) =>{
+    if(row){
+        app.get("/Shelf", (req, res) => {
+            // 商品データの取得
+            if(err){
+                console.log(err)
+            }else{
+                if(row){
+                    return res.render("shelf", {
+                        rows: row,
+                        len: row.length,
+                        productNo: productNo,
+                        next: next,
+                        prev: prev,
+                        modal: modal
+                    }) 
+                }
+            }
+        })
+        app.get("/Shelf/next", (req, res) => {
             if(row){
-                console.log(modal)
-                return res.render("shelf", {
-                    rows: row,
-                    len: row.length,
-                    productNo: productNo,
-                    next: next,
-                    prev: prev,
-                    modal: modal
-                }) 
+                productNo += 30
+                if(productNo + 30 >= row.length){
+                    next = false
+                }
+                prev = true
+                return res.redirect("/Shelf")
             }
-        }
-    })
-    app.get("/Shelf/next", (req, res) => {
-        if(row){
-            productNo += 30
-            if(productNo + 30 >= row.length){
-                next = false
+        })
+        app.get("/Shelf/prev", (req, res) => {
+            productNo -= 30
+            if (productNo <= 0){
+                productNo = 0
+                prev = false
+                next = true
             }
-            prev = true
+            modal = false
             return res.redirect("/Shelf")
-        }
-    })
-    app.get("/Shelf/prev", (req, res) => {
-        productNo -= 30
-        if (productNo <= 0){
-            productNo = 0
-            prev = false
-            next = true
-        }
-        modal = false
-        return res.redirect("/Shelf")
-    })
+        })
+    }
     // 商品モーダル
     for (let i = 0; i < row.length; i++){
         app.get(`/Shelf/p_${i + 1}`, (req, res) => {
@@ -95,19 +102,111 @@ DB.all("select * from product", (err, row) =>{
         })
     }
 })
+// カゴへ追加
+app.post("/Shelf/Cart", (req, res) => {
+    // ログイン判定
+    if(req.session.login){
+        DB.all(`select * from cart
+            join user on cart.user_number = user.user_number
+            where user.user_id = $userID`,
+            {$userID: req.session.login},
+            (err, row) => {
+                
+            }
+        )
+    }else{
+        return res.redirect("/Login")
+    }
+    // if(req.session.login){
+    //     // ユーザIDからユーザナンバーを取得
+    //     // ユーザナンバーからカートテーブルにデータの有無判定
+    //     DB.all(`select *
+    //         from cart
+    //         join user on cart.user_number = user.user_number
+    //         where user.user_id = $userID`,
+    //         {$userID: req.session.login},
+    //         (err, row) => {
+    //             if(err == null){
+    //                 if(row.length != 0){
+    //                     // あったらデータ追加
+    //                     return res.redirect("/Shelf")
+    //                 }else{
+    //                     DB.get(`select user_number
+    //                         from user
+    //                         where user_id = $user_id`,
+    //                         {$user_id : req.session.login},
+    //                         (err, user) => {
+    //                             if(err == null){
+    //                                 // なかったら新規作成
+    //                                 // カートテーブルに新規作成
+    //                                 DB.all(`select cart_id, user_number from cart`, (err, data)=>{
+    //                                     if(err == null){
+    //                                         let cartID = ""
+    //                                         if(data){
+    //                                             data.forEach(e => {
+    //                                                 console.log(e)
+    //                                             })
+    //                                             cartID = `c_${data.length + 1}`
+    //                                         }else{
+    //                                             cartID = "c_1"
+    //                                         }
+    //                                         const userNum = user.user_number
+    //                                         const createAt = today
+    //                                         DB.serialize(() => {
+    //                                             DB.run(`insert into cart
+    //                                                 (cart_id, user_number, created_at)
+    //                                                 values
+    //                                                 ($cart_id, $user_number, $create_at)`,
+    //                                                 {$cart_id: cartID,
+    //                                                 $user_number: userNum,
+    //                                                 $create_at: createAt}
+    //                                             )
+    //                                             DB.run(`insert into cartitem
+    //                                                 (cart_item_id, cart_id, product_id, quantity)
+    //                                                 values
+    //                                                 ($cart_item_id, $cart_id, $product_id, $quantity)`,
+    //                                                 {$cart_item_id: "",
+    //                                                 $cart_id: "",
+    //                                                 $product_id: "",
+    //                                                 $quantity: ""}
+    //                                             )
+    //                                         })
+
+    //                                         return res.redirect("/Shelf")
+    //                                     }else{
+    //                                         console.log(`err: ${err}`)
+    //                                     }
+    //                                 })
+    //                             }else{
+    //                                 console.log(err)
+    //                             }
+    //                         }
+    //                     )
+
+    //                 }
+    //             }else{
+    //                 console.log(err)
+    //             }
+
+    //         }
+    //     ) 
+    // }else{
+    //     return res.redirect("/Login")
+    // }
+})
+// カゴ全削除
+app.get("/delete_cart", (req, res)=>{
+    DB.run(`delete from cart`)
+    return res.redirect("Shelf")
+})
 // カゴページ
 app.get("/Cart", (req, res) => {
-
+    if(req.session.login){
+        return res.render("cart")
+    }else{
+        return res.redirect("/Login")
+    }
 })
-
-
-
-
-
-
-
-
-
 // 会員登録システム
 let ErrorString = {}
 function initError(){

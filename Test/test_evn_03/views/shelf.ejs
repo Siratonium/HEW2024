@@ -24,13 +24,21 @@
                     <li>商品名：<%- rows[i].product_name %></li>
                     <li>値段：<%- rows[i].fee %></li>
                     <li>在庫：<%- rows[i].stock %></li>
-                    <a href="">詳細を見る</a>
+                    <li>企業：<%- rows[i].manufacturer %></li>
+                    <li>重量：<%- rows[i].weight %></li>
+                    <li>内容物：<%- rows[i].content %></li>
+                    <li>アレルゲン：<%- rows[i].allergens ? rows[i].allergens : "なし" %></li>
+                    <form action="/Shelf/Cart" method="post">
+                        <li>数量：<input type="number" name="quanttity" value="1"></li>
+                        <input type="submit" value="カゴへ入れる">
+                    </form>
                 </div>
             </div>
         <% } %>
     <% } %>
 <% } %>
 <!-- カゴを表示 -->
-<li><a href="">買い物カゴ</a>：未実装</li>
+<li><a href="/Cart">買い物カゴ</a>：未実装</li>
+<li><a href="/delete_cart">カートテーブル全削除</a></li>
 <a href="/">TOPページ</a>
 <%-include ("footer") %>
