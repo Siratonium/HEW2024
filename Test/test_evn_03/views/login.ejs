@@ -1,19 +1,16 @@
 <%-include ("base") %>
-<main>
+<main class="login_wrapper">
     <h1>ログイン</h1>
     <form action="/Login" method="post">
         <div class="login_block">
             <p>ユーザ名もしくはメールアドレス</p>
-            <input type="text" name="user_input">
+            <input type="text" name="user_name">
             <p>パスワード</p>
             <input type="password" name="password">
-            <!-- ログインエラー文 -->
-            <p><%- session.loginErr ? session.loginErr : "" %></p>
-            <p>状態：<%- session.login ? "ログイン済み" : "未ログイン" %></p>
+            <p><%- session.login %></p>
         </div>
         <input type="submit" value="ログイン">
     </form>
     <a href="/">TOPページ</a>
-    <a href="/Signup">会員登録へ</a>
 </main>
 <%-include ("footer") %>

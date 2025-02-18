@@ -34,179 +34,10 @@ const DB = new sqlite.Database("hew.db")
 
 // TOPページ
 app.get("/", (req, res)=> {
-    // セッション内容処理
-    const sessionKeys = Object.keys(req.session)
-    sessionKeys.forEach(e => {
-        if ( e != "cookie" & e != "login"){
-            req.session[e] = ""
-        }
-    })
+    console.log(req.session)
     res.render("index", {session: req.session})
 })
-// 棚ページ
-let productNo = 0
-let next = true
-let prev = false
-let modal = false
-DB.all(`select * 
-    from product 
-    join
-    description 
-    on 
-    product.product_id = description.product_id`,
-    (err, row) =>{
-    if(row){
-        app.get("/Shelf", (req, res) => {
-            // 商品データの取得
-            if(err){
-                console.log(err)
-            }else{
-                if(row){
-                    return res.render("shelf", {
-                        rows: row,
-                        len: row.length,
-                        productNo: productNo,
-                        next: next,
-                        prev: prev,
-                        modal: modal
-                    }) 
-                }
-            }
-        })
-        app.get("/Shelf/next", (req, res) => {
-            if(row){
-                productNo += 30
-                if(productNo + 30 >= row.length){
-                    next = false
-                }
-                prev = true
-                return res.redirect("/Shelf")
-            }
-        })
-        app.get("/Shelf/prev", (req, res) => {
-            productNo -= 30
-            if (productNo <= 0){
-                productNo = 0
-                prev = false
-                next = true
-            }
-            modal = false
-            return res.redirect("/Shelf")
-        })
-    }
-    // 商品モーダル
-    for (let i = 0; i < row.length; i++){
-        app.get(`/Shelf/p_${i + 1}`, (req, res) => {
-            modal = `p_${i + 1}`
-            return res.redirect("/Shelf")
-        })
-    }
-})
-// カゴへ追加
-app.post("/Shelf/Cart", (req, res) => {
-    // ログイン判定
-    if(req.session.login){
-        DB.all(`select * from cart
-            join user on cart.user_number = user.user_number
-            where user.user_id = $userID`,
-            {$userID: req.session.login},
-            (err, row) => {
-                
-            }
-        )
-    }else{
-        return res.redirect("/Login")
-    }
-    // if(req.session.login){
-    //     // ユーザIDからユーザナンバーを取得
-    //     // ユーザナンバーからカートテーブルにデータの有無判定
-    //     DB.all(`select *
-    //         from cart
-    //         join user on cart.user_number = user.user_number
-    //         where user.user_id = $userID`,
-    //         {$userID: req.session.login},
-    //         (err, row) => {
-    //             if(err == null){
-    //                 if(row.length != 0){
-    //                     // あったらデータ追加
-    //                     return res.redirect("/Shelf")
-    //                 }else{
-    //                     DB.get(`select user_number
-    //                         from user
-    //                         where user_id = $user_id`,
-    //                         {$user_id : req.session.login},
-    //                         (err, user) => {
-    //                             if(err == null){
-    //                                 // なかったら新規作成
-    //                                 // カートテーブルに新規作成
-    //                                 DB.all(`select cart_id, user_number from cart`, (err, data)=>{
-    //                                     if(err == null){
-    //                                         let cartID = ""
-    //                                         if(data){
-    //                                             data.forEach(e => {
-    //                                                 console.log(e)
-    //                                             })
-    //                                             cartID = `c_${data.length + 1}`
-    //                                         }else{
-    //                                             cartID = "c_1"
-    //                                         }
-    //                                         const userNum = user.user_number
-    //                                         const createAt = today
-    //                                         DB.serialize(() => {
-    //                                             DB.run(`insert into cart
-    //                                                 (cart_id, user_number, created_at)
-    //                                                 values
-    //                                                 ($cart_id, $user_number, $create_at)`,
-    //                                                 {$cart_id: cartID,
-    //                                                 $user_number: userNum,
-    //                                                 $create_at: createAt}
-    //                                             )
-    //                                             DB.run(`insert into cartitem
-    //                                                 (cart_item_id, cart_id, product_id, quantity)
-    //                                                 values
-    //                                                 ($cart_item_id, $cart_id, $product_id, $quantity)`,
-    //                                                 {$cart_item_id: "",
-    //                                                 $cart_id: "",
-    //                                                 $product_id: "",
-    //                                                 $quantity: ""}
-    //                                             )
-    //                                         })
 
-    //                                         return res.redirect("/Shelf")
-    //                                     }else{
-    //                                         console.log(`err: ${err}`)
-    //                                     }
-    //                                 })
-    //                             }else{
-    //                                 console.log(err)
-    //                             }
-    //                         }
-    //                     )
-
-    //                 }
-    //             }else{
-    //                 console.log(err)
-    //             }
-
-    //         }
-    //     ) 
-    // }else{
-    //     return res.redirect("/Login")
-    // }
-})
-// カゴ全削除
-app.get("/delete_cart", (req, res)=>{
-    DB.run(`delete from cart`)
-    return res.redirect("Shelf")
-})
-// カゴページ
-app.get("/Cart", (req, res) => {
-    if(req.session.login){
-        return res.render("cart")
-    }else{
-        return res.redirect("/Login")
-    }
-})
 // 会員登録システム
 let ErrorString = {}
 function initError(){
@@ -228,7 +59,7 @@ app.get("/Signup", (req, res)=> {
     return res.render("signup", {ErrorString: ErrorString, session: req.session, nowYear: nowYear})
 })
 app.post("/Signup", (req, res)=> {
-    // initError()
+    initError()
     let error = false
     // フォーム情報取得
     FormDataKeys = Object.keys(req.body)
@@ -239,10 +70,8 @@ app.post("/Signup", (req, res)=> {
         }
         // 未入力検査
         if (req.body[e] === ""){
-            if(e != "address_line2"){
-                ErrorString[e] = "上記の項目が未入力です"
-                error = true
-            }
+            ErrorString[e] = "上記の項目が未入力です"
+            error = true
         }else{
 
             // 入力値検査
@@ -303,44 +132,32 @@ app.get("/Login", (req, res) => {
 })
 app.post("/Login", (req, res) => {
     // ユーザ名検索
-    const userInput = req.body.user_input
+    const userName = req.body.user_name
     DB.serialize(function(){
         DB.get(`select user_id, password
             from user
-            where user_id = $userInput or email = $userInput`, {
-            $userInput : userInput
+            where user_id = $userName`, {
+            $userName : userName
         },(err, row)=>{
+            console.log(row)
             if(row){
                 bcrypt.compare(req.body.password, row.password)
                 .then((result)=>{
                     if(result){
-                        req.session.login = row.user_id
-                        return res.redirect("/")
+                        req.session.login = userName
+                        return res.render("login", {session: req.session})
                     }else{
-                        req.session.loginErr = "ユーザ名、メールアドレスまたはパスワードが違います。"
+                        req.session.login = "ログイン失敗"
                         return res.render("login", {session: req.session})
                     }
                 })
             }else{
-                req.session.loginErr = "ユーザ名、メールアドレスまたはパスワードが違います。"
+                req.session.login = "ユーザ名が見つかりません"
                 return res.render("login", {session: req.session})
             }
         })
     })
 })
-// ログアウトシステム
-app.get("/Logout", (req, res)=> {
-    req.session.login = false
-    return res.redirect("/")    
-})
-// 3D画像表示
-app.get("/Cg", (req, res) => {
-    return res.render("cg")
-})
-
-
-
-
 
 app.listen(port, ()=>{
     console.log(`Open port ${port}`)
