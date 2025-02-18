@@ -1,26 +1,25 @@
 *{
     margin: 0;
     padding: 0;
-    list-style: none;
-    box-sizing: border-box;
 }
-/* 登録画面 */
 .signup_block{
     width: 500px;
     display: flex;
     flex-wrap: wrap;
     padding: 10px;
 }
+
+/* MARK:ここ消した */
 .signup_block select{
     width: 85px;
-    height: 30px;
+    /* height: 30px; */
 }
 .signup_block h2{
     width: 100%;
 }
 .signup_block p{
     width: 40%;
-    margin: 10px 0;
+    padding: 8px 0;
 }
 .signup_block p::after{
     content: "*";
@@ -52,6 +51,117 @@
     width: 50%;
     margin: 10px 200px 5px auto;
 }
+
+
+/* MARK:以下 */
+body {
+    font-family: "Noto Sans JP", sans-serif;
+}
+/* MARK:会員登録 */
+/* MARK:※消したい */
+/* mainにクラスつけた */
+/* baseにフォント追加した */
+.signup_wrapper {
+    width: 80%;
+    margin: 0 auto;
+    box-shadow: 0 0 5px #c0c6c9;
+}
+
+.signup_wrapper h1{
+    font-weight: 500;
+    font-size: 2.5rem;
+    padding: 50px;
+    text-align: center;
+}
+
+.signup_block {
+    margin: 0 auto;
+    width: 70%;
+}
+
+.signup_block h2 {
+    border-bottom: 3px solid gray;
+}
+
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+
+
+input:focus {
+    border-color: blue;
+    outline: none;
+}
+
+select:focus {
+    border-color: blue;
+    outline: none;
+}
+
+.button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 50px;
+}
+
+/* MARK:login */
+
+.login_wrapper {
+    width: 80%;
+    margin: 0 auto;
+    box-shadow: 0 0 5px #c0c6c9;
+}
+
+.login_wrapper h1{
+    font-weight: 500;
+    font-size: 2.5rem;
+    padding: 50px;
+    text-align: center;
+}
+
+/* MARK:必須任意css */
+.signup_block p::before {
+    position: relative;
+    color: #fff;
+    content: "必須";
+    background-color: #ff0000;
+    font-size: 1rem;
+    right: 10px;
+    border-radius: 8px;
+    padding: 2.5px 10px;
+    vertical-align: middle;
+    /* margin: auto 0; */
+}
+
+.signup_block p, .signup_block input, .signup_block select {
+    margin: 15px 0;
+}
+.optionalItem::before {
+    position: relative;
+    color: #fff;
+    content: "任意";
+    background-color: #c8c8c8;
+    font-size: 1rem;
+    right: 10px;
+    border-radius: 8px;
+    padding: 2.5px 10px;
+}
+
+/* MARK: */
+
 /* 棚 */
 .product{
     width: calc(100% / 10 - 2px);
@@ -70,4 +180,20 @@
     display: flex;
     justify-content: space-between;
     padding: 20px;
+}
+/* 商品モーダル */
+#puroduct_modal_wrap{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#puroduct_modal{
+    width: 800px;
+    height: 450px;
+    background-color: #fff;
 }
