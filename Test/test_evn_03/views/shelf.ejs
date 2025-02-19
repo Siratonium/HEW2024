@@ -29,7 +29,12 @@
                     <li>内容物：<%- rows[i].content %></li>
                     <li>アレルゲン：<%- rows[i].allergens ? rows[i].allergens : "なし" %></li>
                     <form action="/Shelf/Cart" method="post">
+<<<<<<< HEAD
                         <li>数量：<input type="number" name="quanttity" value="1"></li>
+=======
+                        <input type="hidden" name="p_id" value="<%- rows[i].product_id %>">
+                        <li>数量：<input type="number" name="quantity" value="1"></li>
+>>>>>>> 23f051e4ef73a8132f35eec09c9cc3afb8fbf73b
                         <input type="submit" value="カゴへ入れる">
                     </form>
                 </div>

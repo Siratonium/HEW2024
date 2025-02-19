@@ -106,6 +106,7 @@ DB.all(`select *
 app.post("/Shelf/Cart", (req, res) => {
     // ログイン判定
     if(req.session.login){
+<<<<<<< HEAD
         DB.all(`select * from cart
             join user on cart.user_number = user.user_number
             where user.user_id = $userID`,
@@ -191,10 +192,75 @@ app.post("/Shelf/Cart", (req, res) => {
     // }else{
     //     return res.redirect("/Login")
     // }
+=======
+        DB.serialize(()=>{
+            DB.all(`select * from cart
+                where user_number = $userNumber`,
+                {$userNumber: req.session.login.userNumber},
+                (err, row) => {
+                    // 条件に一致するレコードがなかった場合
+                    if(row.length == 0){
+                        // カートテーブルのレコード数
+                        DB.all(`select * from cart`, (err, rows) => {
+                            let cartId = `c_${rows.length + 1}`
+                            // カートテーブル新規作成
+                            DB.run(`insert into cart
+                                (cart_id, user_number, created_at)
+                                values
+                                ($cart_id, $user_number, $created_at)`,{
+                                    $cart_id: cartId,
+                                    $user_number: req.session.login.userNumber,
+                                    $created_at: today
+                                },(err) => {
+                                    if(err != null){
+                                        console.log(`row128 Error: ${err}`)
+                                    }
+                                })
+                            console.log("新規作成")
+                        })
+                    }
+                }
+            )
+            // カートテーブルでヒットしたデータとフォームデータからカートアイテムテーブルに挿入
+            DB.all(`select * from cart
+                where user_number = $userNumber`,
+                {$userNumber: req.session.login.userNumber},
+                (err, data) => {
+                    console.log(data)
+                    DB.all(`select cart_item_id from cart_item`, (err, cart_item_row)=>{
+                        const caetItemId = `c_i_${cart_item_row.length + 1}`
+                        const cartId = data[0].cart_id
+                        const productId = req.body.p_id
+                        const quantity = req.body.quantity
+                        DB.run(`insert into cart_item
+                            (cart_item_id, cart_id, product_id, quantity)
+                            values
+                            ($cart_item_id, $cart_id, $product_id, $quantity)`,{
+                                $cart_item_id: caetItemId,
+                                $cart_id: cartId,
+                                $product_id: productId,
+                                $quantity: quantity
+                            },(err)=>{
+                                if(err != null){
+                                    console.log(`row154 Error${err}`)
+                                }
+                            })
+                    })
+            })
+        })
+        return res.redirect("/Shelf")
+    }else{
+        return res.redirect("/Login")
+    }
+>>>>>>> 23f051e4ef73a8132f35eec09c9cc3afb8fbf73b
 })
 // カゴ全削除
 app.get("/delete_cart", (req, res)=>{
     DB.run(`delete from cart`)
+<<<<<<< HEAD
+=======
+    DB.run(`delete from cart_item`)
+>>>>>>> 23f051e4ef73a8132f35eec09c9cc3afb8fbf73b
     return res.redirect("Shelf")
 })
 // カゴページ
@@ -303,7 +369,7 @@ app.post("/Login", (req, res) => {
     // ユーザ名検索
     const userInput = req.body.user_input
     DB.serialize(function(){
-        DB.get(`select user_id, password
+        DB.get(`select user_number, user_id, password
             from user
             where user_id = $userInput or email = $userInput`, {
             $userInput : userInput
@@ -312,7 +378,10 @@ app.post("/Login", (req, res) => {
                 bcrypt.compare(req.body.password, row.password)
                 .then((result)=>{
                     if(result){
-                        req.session.login = row.user_id
+                        req.session.login = {
+                            userNumber : row.user_number,
+                            userID : row.user_id
+                        }
                         return res.redirect("/")
                     }else{
                         req.session.loginErr = "ユーザ名、メールアドレスまたはパスワードが違います。"
