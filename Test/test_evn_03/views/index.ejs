@@ -7,7 +7,7 @@
         <li><a href="/Shelf">棚</a>：未実装</li>
         <li><a href="/Cg">3D画像表示ページ</a></li>
         <!-- ログイン状態確認用 -->
-        <li><%- session.login ? session.login : "ログインしてください" %></li>
+        <li><%- session.login ? session.login.userID:"ログインしてください" %></li>
         <% if (session.login) {%>
             <li><a href="">☆マイページ</a>：未実装</li>
             <li><a href="/Logout">☆ログアウト</a>：実装済み</li>
