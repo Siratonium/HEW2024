@@ -106,93 +106,6 @@ DB.all(`select *
 app.post("/Shelf/Cart", (req, res) => {
     // ログイン判定
     if(req.session.login){
-<<<<<<< HEAD
-        DB.all(`select * from cart
-            join user on cart.user_number = user.user_number
-            where user.user_id = $userID`,
-            {$userID: req.session.login},
-            (err, row) => {
-                
-            }
-        )
-    }else{
-        return res.redirect("/Login")
-    }
-    // if(req.session.login){
-    //     // ユーザIDからユーザナンバーを取得
-    //     // ユーザナンバーからカートテーブルにデータの有無判定
-    //     DB.all(`select *
-    //         from cart
-    //         join user on cart.user_number = user.user_number
-    //         where user.user_id = $userID`,
-    //         {$userID: req.session.login},
-    //         (err, row) => {
-    //             if(err == null){
-    //                 if(row.length != 0){
-    //                     // あったらデータ追加
-    //                     return res.redirect("/Shelf")
-    //                 }else{
-    //                     DB.get(`select user_number
-    //                         from user
-    //                         where user_id = $user_id`,
-    //                         {$user_id : req.session.login},
-    //                         (err, user) => {
-    //                             if(err == null){
-    //                                 // なかったら新規作成
-    //                                 // カートテーブルに新規作成
-    //                                 DB.all(`select cart_id, user_number from cart`, (err, data)=>{
-    //                                     if(err == null){
-    //                                         let cartID = ""
-    //                                         if(data){
-    //                                             data.forEach(e => {
-    //                                                 console.log(e)
-    //                                             })
-    //                                             cartID = `c_${data.length + 1}`
-    //                                         }else{
-    //                                             cartID = "c_1"
-    //                                         }
-    //                                         const userNum = user.user_number
-    //                                         const createAt = today
-    //                                         DB.serialize(() => {
-    //                                             DB.run(`insert into cart
-    //                                                 (cart_id, user_number, created_at)
-    //                                                 values
-    //                                                 ($cart_id, $user_number, $create_at)`,
-    //                                                 {$cart_id: cartID,
-    //                                                 $user_number: userNum,
-    //                                                 $create_at: createAt}
-    //                                             )
-    //                                             DB.run(`insert into cartitem
-    //                                                 (cart_item_id, cart_id, product_id, quantity)
-    //                                                 values
-    //                                                 ($cart_item_id, $cart_id, $product_id, $quantity)`,
-    //                                                 {$cart_item_id: "",
-    //                                                 $cart_id: "",
-    //                                                 $product_id: "",
-    //                                                 $quantity: ""}
-    //                                             )
-    //                                         })
-
-    //                                         return res.redirect("/Shelf")
-    //                                     }else{
-    //                                         console.log(`err: ${err}`)
-    //                                     }
-    //                                 })
-    //                             }else{
-    //                                 console.log(err)
-    //                             }
-    //                         }
-    //                     )
-    //                 }
-    //             }else{
-    //                 console.log(err)
-    //             }
-    //         }
-    //     ) 
-    // }else{
-    //     return res.redirect("/Login")
-    // }
-=======
         DB.serialize(()=>{
             DB.all(`select * from cart
                 where user_number = $userNumber`,
@@ -252,15 +165,11 @@ app.post("/Shelf/Cart", (req, res) => {
     }else{
         return res.redirect("/Login")
     }
->>>>>>> 23f051e4ef73a8132f35eec09c9cc3afb8fbf73b
 })
 // カゴ全削除
 app.get("/delete_cart", (req, res)=>{
     DB.run(`delete from cart`)
-<<<<<<< HEAD
-=======
     DB.run(`delete from cart_item`)
->>>>>>> 23f051e4ef73a8132f35eec09c9cc3afb8fbf73b
     return res.redirect("Shelf")
 })
 // カゴページ
