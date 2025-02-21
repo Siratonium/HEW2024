@@ -213,3 +213,43 @@ select:focus {
     height: 100px;
     border: #000 1px solid;
 }
+
+/* ヘッダー */
+#header_wrapper{
+    width: 100%;
+    height: 80px;
+    border-bottom: #000 1px solid;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+}
+#logo{
+    width: 20%;
+    display: flex;
+    border-right: 1px #000 solid;
+}
+#logo_icon{
+    width: 80px;
+    height: 80px;
+}
+#logo_icon img{
+    width: 100%;
+}
+#logo_titol{
+    width: 200px;
+    height: 80px;
+}
+#logo_titol img{
+    width: 100%;
+}
+#search{
+    width: 50%;
+    border-right: 1px #000 solid;
+}
+#search input{
+    width: 50%;
+}
+#link_icon{
+    width: 550px;
+    display: flex;
+}
