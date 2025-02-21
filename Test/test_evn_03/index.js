@@ -139,25 +139,45 @@ app.post("/Shelf/Cart", (req, res) => {
                 where user_number = $userNumber`,
                 {$userNumber: req.session.login.userNumber},
                 (err, data) => {
-                    console.log(data)
-                    DB.all(`select cart_item_id from cart_item`, (err, cart_item_row)=>{
-                        const caetItemId = `c_i_${cart_item_row.length + 1}`
-                        const cartId = data[0].cart_id
-                        const productId = req.body.p_id
-                        const quantity = req.body.quantity
-                        DB.run(`insert into cart_item
-                            (cart_item_id, cart_id, product_id, quantity)
-                            values
-                            ($cart_item_id, $cart_id, $product_id, $quantity)`,{
-                                $cart_item_id: caetItemId,
-                                $cart_id: cartId,
-                                $product_id: productId,
-                                $quantity: quantity
-                            },(err)=>{
-                                if(err != null){
-                                    console.log(`row154 Error${err}`)
+                    DB.all(`select cart_item_id, product_id from cart_item`,
+                        (err, cart_item_row)=>{
+                        if(err != null){
+                            console.log(`row155 Error${err}`)
+                        }else{
+                            const caetItemId = `c_i_${cart_item_row.length + 1}`
+                            const cartId = data[0].cart_id
+                            const productId = req.body.p_id
+                            const quantity = req.body.quantity
+                            let duplicate = false
+                            for(let i = 0; i < cart_item_row.length; i++){
+                                if(cart_item_row[i].product_id == productId){
+                                    duplicate = true
                                 }
-                            })
+                            }
+                            if(duplicate){
+                                DB.run(`update cart_item
+                                    set quantity = quantity + $inputQuantity
+                                    where cart_id = $cart_id and product_id = $product_id`,{
+                                    $inputQuantity: quantity,
+                                    $cart_id: cartId,
+                                    $product_id: productId
+                                })
+                            }else{
+                                DB.run(`insert into cart_item
+                                    (cart_item_id, cart_id, product_id, quantity)
+                                    values
+                                    ($cart_item_id, $cart_id, $product_id, $quantity)`,{
+                                        $cart_item_id: caetItemId,
+                                        $cart_id: cartId,
+                                        $product_id: productId,
+                                        $quantity: quantity
+                                    },(err)=>{
+                                        if(err != null){
+                                            console.log(`row169 Error${err}`)
+                                        }
+                                    })
+                            }
+                        }
                     })
             })
         })
@@ -175,7 +195,18 @@ app.get("/delete_cart", (req, res)=>{
 // カゴページ
 app.get("/Cart", (req, res) => {
     if(req.session.login){
-        return res.render("cart")
+        DB.all(`select * from product
+            join cart_item on product.product_id = cart_item.product_id
+            join cart on cart_item.cart_id = cart.cart_id
+            where cart.user_number = $userNumber`,{
+                $userNumber: req.session.login.userNumber
+            },(err, row)=>{
+                console.log(row)
+                console.log(row.length)
+                const data = row
+                const col = row.length
+                return res.render("cart", {data: data, data_col:col})
+            })
     }else{
         return res.redirect("/Login")
     }
