@@ -9,6 +9,8 @@ const nowYear = currentTime.format("YYYY")
 const bcrypt = require("bcrypt")
 const { render } = require("ejs")
 
+const Max = function (a, b) {return Math.max(a, b);}
+const Min = function (a, b) {return Math.min(a, b);}
 
 const app = express()
 // const port = 3000
@@ -115,7 +117,17 @@ app.post("/Shelf/Cart", (req, res) => {
                     if(row.length == 0){
                         // カートテーブルのレコード数
                         DB.all(`select * from cart`, (err, rows) => {
-                            let cartId = `c_${rows.length + 1}`
+                            let cartId = ""
+                            let cartIdList = []
+                            rows.forEach(data => {
+                                cartIdList.push(data.cart_id.slice(2))
+                            })
+                            if(cartIdList.reduce(Min) != 1){
+                                cartId = `c_${cartIdList.reduce(Min) - 1}`
+                            }else{
+                                cartId = `c_${cartIdList.reduce(Max) + 1}`
+                            }
+                            
                             // カートテーブル新規作成
                             DB.run(`insert into cart
                                 (cart_id, user_number, created_at)
@@ -144,7 +156,16 @@ app.post("/Shelf/Cart", (req, res) => {
                         if(err != null){
                             console.log(`row155 Error${err}`)
                         }else{
-                            const caetItemId = `c_i_${cart_item_row.length + 1}`
+                            let cartItemId = ""
+                            let cartItemIdList = []
+                            cart_item_row.forEach(data => {
+                                cartItemIdList.push(data.cart_item_id.slice(4))
+                            })
+                            if(cartItemIdList.reduce(Min) != 1){
+                                cartItemId = `c_i_${cartItemIdList.reduce(Min) - 1}`
+                            }else{
+                                cartItemId = `c_i_${cartItemIdList.reduce(Max) + 1}`
+                            }
                             const cartId = data[0].cart_id
                             const productId = req.body.p_id
                             const quantity = req.body.quantity
@@ -167,7 +188,7 @@ app.post("/Shelf/Cart", (req, res) => {
                                     (cart_item_id, cart_id, product_id, quantity)
                                     values
                                     ($cart_item_id, $cart_id, $product_id, $quantity)`,{
-                                        $cart_item_id: caetItemId,
+                                        $cart_item_id: cartItemId,
                                         $cart_id: cartId,
                                         $product_id: productId,
                                         $quantity: quantity
@@ -201,8 +222,6 @@ app.get("/Cart", (req, res) => {
             where cart.user_number = $userNumber`,{
                 $userNumber: req.session.login.userNumber
             },(err, row)=>{
-                console.log(row)
-                console.log(row.length)
                 const data = row
                 const col = row.length
                 return res.render("cart", {data: data, data_col:col})
@@ -211,6 +230,42 @@ app.get("/Cart", (req, res) => {
         return res.redirect("/Login")
     }
 })
+app.post("/Cart/Update", (req, res)=>{
+    let updateData = 0
+    if(req.body.update == "m"){
+        updateData = -1
+
+    }else if(req.body.update == "p"){
+        updateData = 1
+    }
+    if(Number(req.body.quantity) + updateData <= 0){
+        console.log(`削除: ${req.body.id}`)
+        DB.run(`delete from cart_item where cart_item_id = $id`,{
+            $id: req.body.id
+        },(err) => {
+            if(err){
+                console.log(err)
+            }
+        }) 
+    }else{
+        DB.run(`update cart_item
+            set quantity = quantity + $update
+            where cart_item_id = $id`,{
+                $update: updateData,
+                $id: req.body.id
+            },(err)=>{
+                if(err){
+                    console.log(err)
+                }
+            })
+    }
+
+    return res.redirect("/Cart")
+})
+
+
+
+
 // 会員登録システム
 let ErrorString = {}
 function initError(){

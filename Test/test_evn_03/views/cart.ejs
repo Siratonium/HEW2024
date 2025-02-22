@@ -9,13 +9,25 @@
 <% }else{ %>
     <!-- データの数だけfor文を回す -->
     <% total = 0 %>
+    <!--  -->
     <div class="cart_content">
         <% for (i = 0; i<data_col; i++) {%>
-                <ul class="cart_data">
-                    <li>商品名：<%- data[i].product_name %></li>
-                    <li>数量：<%- data[i].quantity %>点</li>
-                    <li>値段：<%- data[i].quantity * data[i].fee %>円</li>
-                </ul>
+                <form action="/Cart/Update" method="post" class="cart_data">
+                    <img src="image/noimage.jpg" alt="">
+                    <div class="product_data">
+                        <ul class="product_data_detail">
+                            <li>商品名：<%- data[i].product_name %></li>
+                            <li>値段：<%- data[i].quantity * data[i].fee %>円</li>
+                        </ul>
+                        <input type="hidden" name="id" value="<%- data[i].cart_item_id %>">
+                        <ul class="product_data_ctrl">
+                            <button class="minus" name="update" type="submit" value="m">-</button>
+                            <input type="number" class="quantity" name="quantity" value="<%- data[i].quantity %>">
+                            <button class="plus" name="update" type="submit" value="p">+</button>
+                            <li><a href="">削除</a></li>
+                        </ul>
+                    </div>
+                </form>
                 <% total += data[i].quantity * data[i].fee %>
         <% } %>
         <p>合計：<%- total %>円</p>

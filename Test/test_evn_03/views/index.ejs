@@ -1,11 +1,11 @@
 <%-include ("base") %>
-<%-include("header") %>
 <main>
     <h1>TOPページ</h1>
     <ol>
         <li><a href="/Check">会計</a>：未実装</li>
         <li><a href="/Poster">ポスター</a>：未実装</li>
         <li><a href="/Shelf">棚</a>：実装済み</li>
+        <li><a href="/Cart">かご</a>：実装済み</li>
         <li><a href="/Cg">3D画像表示ページ</a></li>
         <!-- ログイン状態確認用 -->
         <li><%- session.login ? session.login.userID:"ログインしてください" %></li>
