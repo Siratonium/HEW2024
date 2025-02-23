@@ -117,17 +117,18 @@ app.post("/Shelf/Cart", (req, res) => {
                     if(row.length == 0){
                         // カートテーブルのレコード数
                         DB.all(`select * from cart`, (err, rows) => {
-                            let cartId = ""
-                            let cartIdList = []
-                            rows.forEach(data => {
-                                cartIdList.push(data.cart_id.slice(2))
-                            })
-                            if(cartIdList.reduce(Min) != 1){
-                                cartId = `c_${cartIdList.reduce(Min) - 1}`
-                            }else{
-                                cartId = `c_${cartIdList.reduce(Max) + 1}`
-                            }
-                            
+                            let cartId = "c_1"
+                            if(rows.length != 0){
+                                let cartIdList = []
+                                rows.forEach(data => {
+                                    cartIdList.push(data.cart_id.slice(2))
+                                })
+                                if(cartIdList.reduce(Min) != 1){
+                                    cartId = `c_${cartIdList.reduce(Min) - 1}`
+                                }else{
+                                    cartId = `c_${cartIdList.reduce(Max) + 1}`
+                                }
+                            }                            
                             // カートテーブル新規作成
                             DB.run(`insert into cart
                                 (cart_id, user_number, created_at)
@@ -156,15 +157,17 @@ app.post("/Shelf/Cart", (req, res) => {
                         if(err != null){
                             console.log(`row155 Error${err}`)
                         }else{
-                            let cartItemId = ""
-                            let cartItemIdList = []
-                            cart_item_row.forEach(data => {
-                                cartItemIdList.push(data.cart_item_id.slice(4))
-                            })
-                            if(cartItemIdList.reduce(Min) != 1){
-                                cartItemId = `c_i_${cartItemIdList.reduce(Min) - 1}`
-                            }else{
-                                cartItemId = `c_i_${cartItemIdList.reduce(Max) + 1}`
+                            let cartItemId = "c_i_1"
+                            if(cart_item_row.length != 0){
+                                let cartItemIdList = []
+                                cart_item_row.forEach(data => {
+                                    cartItemIdList.push(data.cart_item_id.slice(4))
+                                })
+                                if(cartItemIdList.reduce(Min) != 1){
+                                    cartItemId = `c_i_${cartItemIdList.reduce(Min) - 1}`
+                                }else{
+                                    cartItemId = `c_i_${cartItemIdList.reduce(Max) + 1}`
+                                }
                             }
                             const cartId = data[0].cart_id
                             const productId = req.body.p_id
@@ -238,7 +241,7 @@ app.post("/Cart/Update", (req, res)=>{
     }else if(req.body.update == "p"){
         updateData = 1
     }
-    if(Number(req.body.quantity) + updateData <= 0){
+    if(Number(req.body.quantity) + updateData <= 0 || req.body.update == "d"){
         console.log(`削除: ${req.body.id}`)
         DB.run(`delete from cart_item where cart_item_id = $id`,{
             $id: req.body.id
@@ -262,7 +265,6 @@ app.post("/Cart/Update", (req, res)=>{
 
     return res.redirect("/Cart")
 })
-
 
 
 
