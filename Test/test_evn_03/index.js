@@ -50,9 +50,7 @@ let prev = false
 let modal = false
 DB.all(`select * 
     from product 
-    join
-    description 
-    on 
+    join description on 
     product.product_id = description.product_id`,
     (err, row) =>{
     if(row){

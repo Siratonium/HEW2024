@@ -4,12 +4,33 @@
     <a href="/Shelf/prev"><%- prev ? "＜戻る" : "" %></a>
     <a href="/Shelf/next"><%- next ? "次へ＞" : "" %></a>
 </div>
+<style>
+    .tCC {
+        width: 80%; 
+        height: 50%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        border-radius: 20px;
+        overflow: hidden;
+        background: #000000;
+        
+    }
+
+    canvas {
+        width: 100%;
+        height: 100%;
+        display: block; 
+    }
+</style>
 <!-- 商品一覧 -->
 <div id="product_block">
     <% for (i = productNo; i < productNo + 30; i++) {%>
         <div class="product">
-            <a href="Shelf/<%- rows[i] ? rows[i].product_id : "" %>">
+            <a href="Shelf/<%- rows[i] ? rows[i].product_id : "" %>" class = "link" id = " <%-rows[i].product_id%>" >
                 <%- rows[i] ? rows[i].product_name : "" %>
+                
             </a>
         </div>
     <% }; %>
@@ -18,9 +39,12 @@
 <% if (modal){ %>
     <% for (i = 0; i < len; i++) {%>
         <% if(rows[i].product_id == modal) {%>
-            <div id="puroduct_modal_wrap">
+            <div class="puroduct_modal_wrap" id="<%- rows[i].product_id %>">
                 <div id="puroduct_modal">
                     <a href="/Shelf/prev">閉じる</a>
+
+                    <div class="tCC" id="tCC-<%- rows[i].product_id %>"></div>
+                    
                     <li>商品名：<%- rows[i].product_name %></li>
                     <li>値段：<%- rows[i].fee %></li>
                     <li>在庫：<%- rows[i].stock %></li>
@@ -42,4 +66,8 @@
 <li><a href="/Cart">買い物カゴ</a>：未実装</li>
 <li><a href="/delete_cart">カートテーブル全削除</a></li>
 <a href="/">TOPページ</a>
+<script src="https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.141.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/controls/OrbitControls.js"></script>
+<script src="/js/glb2.js"></script>
 <%-include ("footer") %>

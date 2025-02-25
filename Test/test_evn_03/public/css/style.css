@@ -182,7 +182,7 @@ select:focus {
     padding: 20px;
 }
 /* 商品モーダル */
-#puroduct_modal_wrap{
+.puroduct_modal_wrap{
     width: 100%;
     height: 100%;
     position: absolute;
