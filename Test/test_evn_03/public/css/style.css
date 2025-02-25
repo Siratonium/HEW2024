@@ -1,3 +1,11 @@
+/*
+Copyright (c) 2007, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.2.2
+*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}ol,ul {list-style:none;}caption,th {text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym {border:0;}
+
 *{
     margin: 0;
     padding: 0;
@@ -84,10 +92,10 @@ body {
     margin: 0 auto;
     width: 70%;
 }
-
+/* 
 .signup_block h2 {
     border-bottom: 3px solid gray;
-}
+} */
 
 
 input, select {
@@ -113,7 +121,7 @@ select:focus {
 }
 
 .button {
-    background-color: #007bff;
+    /* background-color: #007bff; */
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -138,17 +146,32 @@ select:focus {
     text-align: center;
 }
 
+/* MARK:下線 */
+.border_bottom{
+    border-bottom: 3px solid gray;
+}
+
+/* MARK:button */
+.button_wrapper {
+    width: 15%;
+    margin: 0 auto;
+}
+.button:hover {
+    background-color: #0056b3;
+    color: #e0e0e0;
+}
+
 /* MARK:必須任意css */
-.signup_block p::before {
+.requiredItem::before {
     position: relative;
     color: #fff;
     content: "必須";
     background-color: #ff0000;
-    font-size: 1rem;
+    font-size: 0.8rem;
     right: 10px;
     border-radius: 8px;
-    padding: 2.5px 10px;
-    vertical-align: middle;
+    padding: 0.5px 6px;
+    /* vertical-align: middle; */
     /* margin: auto 0; */
 }
 
@@ -160,10 +183,10 @@ select:focus {
     color: #fff;
     content: "任意";
     background-color: #c8c8c8;
-    font-size: 1rem;
+    font-size: 0.8rem;
     right: 10px;
     border-radius: 8px;
-    padding: 2.5px 10px;
+    padding: 0.5px 6px;
 }
 
 /* MARK: */
@@ -188,7 +211,7 @@ select:focus {
     padding: 20px;
 }
 /* 商品モーダル */
-.puroduct_modal_wrap{
+#puroduct_modal_wrap{
     width: 100%;
     height: 100%;
     position: absolute;
