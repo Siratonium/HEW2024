@@ -1,5 +1,39 @@
 <%-include ("base") %>
+<!-- 階層に関して、特になし -->
+<!-- id,calssに関して、特になし -->
+<!-- 表示データの追加・変更に関して、要相談 -->
 <h1>カゴページ</h1>
+<!-- データが無ければ空文を表示 -->
+<% if (data_col == 0) {%>
+    <h2>かごに入ってる商品はありません。</h2>
+<% }else{ %>
+    <!-- データの数だけfor文を回す -->
+    <% total = 0 %>
+    <!--  -->
+    <div class="cart_content">
+        <% for (i = 0; i<data_col; i++) {%>
+                <form action="/Cart/Update" method="post" class="cart_data">
+                    <img src="image/noimage.jpg" alt="">
+                    <div class="product_data">
+                        <ul class="product_data_detail">
+                            <li>商品名：<%- data[i].product_name %></li>
+                            <li>値段：<%- data[i].quantity * data[i].fee %>円</li>
+                        </ul>
+                        <input type="hidden" name="id" value="<%- data[i].cart_item_id %>">
+                        <ul class="product_data_ctrl">
+                            <button class="minus" name="update" type="submit" value="m">-</button>
+                            <input type="number" class="quantity" name="quantity" value="<%- data[i].quantity %>">
+                            <button class="plus" name="update" type="submit" value="p">+</button>
+                            <button  name="update" type="submit" value="d">削除</button>
+                        </ul>
+                    </div>
+                </form>
+                <% total += data[i].quantity * data[i].fee %>
+        <% } %>
+        <p>合計：<%- total %>円</p>
+    </div>
 
-
+<% } %>
+<a href="/">TOPページ</a>
+<a href="/Shelf">棚ページ</a>
 <%-include ("footer") %>
