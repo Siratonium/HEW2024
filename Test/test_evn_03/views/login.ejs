@@ -1,9 +1,9 @@
 <%-include ("base") %>
 <!-- formタブから出なければ問題なし -->
 <!-- 表示したい文言（エラー文等）及び情報がある場合は要相談 -->
-<main>
-    <h1>ログイン</h1>
-    <form action="/Login" method="post">
+<main class="login_wrapper">
+    <h1 class="border_bottom">ログイン</h1>
+    <form action="/Login" method="post" class="login_form">
         <div class="login_block">
             <p>ユーザ名もしくはメールアドレス</p>
             <input type="text" name="user_input">
@@ -13,9 +13,11 @@
             <p><%- session.loginErr ? session.loginErr : "" %></p>
             <p>状態：<%- session.login ? "ログイン済み" : "未ログイン" %></p>
         </div>
-        <input type="submit" value="ログイン">
+        <div class="button_wrapper">
+            <input type="submit" class="button" value="ログイン">
+        </div>
     </form>
+    <a href="/Signup" class="signup_link">会員登録へ</a>
     <a href="/">TOPページ</a>
-    <a href="/Signup">会員登録へ</a>
 </main>
 <%-include ("footer") %>
