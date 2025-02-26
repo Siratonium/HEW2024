@@ -45,11 +45,11 @@ app.get("/", (req, res)=> {
     })
     res.render("index", {session: req.session})
 })
+// TOPページ（本番用）
+app.get("/Top", (req, res) => {
+    return res.render("top")
+})
 // 棚ページ
-let productNo = 0
-let next = true
-let prev = false
-let modal = false
 DB.all(`select * 
     from product 
     join
@@ -57,52 +57,56 @@ DB.all(`select *
     on 
     product.product_id = description.product_id`,
     (err, row) =>{
-    if(row){
-        app.get("/Shelf", (req, res) => {
-            // 商品データの取得
-            if(err){
-                console.log(err)
-            }else{
+        let productNo = 0
+        let next = true
+        let prev = false
+        let modal = false
+        if(row){
+            app.get("/Shelf", (req, res) => {
+                // 商品データの取得
+                if(err){
+                    console.log(err)
+                }else{
+                    if(row){
+                        return res.render("shelf", {
+                            rows: row,
+                            len: row.length,
+                            productNo: productNo,
+                            next: next,
+                            prev: prev,
+                            modal: modal
+                        }) 
+                    }
+                }
+            })
+            app.get("/Shelf/next", (req, res) => {
                 if(row){
-                    return res.render("shelf", {
-                        rows: row,
-                        len: row.length,
-                        productNo: productNo,
-                        next: next,
-                        prev: prev,
-                        modal: modal
-                    }) 
+                    productNo += 30
+                    if(productNo + 30 >= row.length){
+                        next = false
+                    }
+                    prev = true
+                    return res.redirect("/Shelf")
                 }
-            }
-        })
-        app.get("/Shelf/next", (req, res) => {
-            if(row){
-                productNo += 30
-                if(productNo + 30 >= row.length){
-                    next = false
+            })
+            app.get("/Shelf/prev", (req, res) => {
+                productNo -= 30
+                if (productNo <= 0){
+                    productNo = 0
+                    prev = false
+                    next = true
                 }
-                prev = true
+                modal = false
                 return res.redirect("/Shelf")
-            }
-        })
-        app.get("/Shelf/prev", (req, res) => {
-            productNo -= 30
-            if (productNo <= 0){
-                productNo = 0
-                prev = false
-                next = true
-            }
-            modal = false
-            return res.redirect("/Shelf")
-        })
-    }
-    // 商品モーダル
-    for (let i = 0; i < row.length; i++){
-        app.get(`/Shelf/p_${i + 1}`, (req, res) => {
-            modal = `p_${i + 1}`
-            return res.redirect("/Shelf")
-        })
-    }
+            })
+        }
+        // 商品モーダル
+        for (let i = 0; i < row.length; i++){
+            app.get(`/Shelf/p_${i + 1}`, (req, res) => {
+                modal = `p_${i + 1}`
+                return res.redirect("/Shelf")
+            })
+        }
 })
 // カゴへ追加
 app.post("/Shelf/Cart", (req, res) => {
@@ -217,6 +221,7 @@ app.get("/delete_cart", (req, res)=>{
     return res.redirect("Shelf")
 })
 // カゴページ
+
 app.get("/Cart", (req, res) => {
     if(req.session.login){
         DB.all(`select * from product
@@ -227,12 +232,50 @@ app.get("/Cart", (req, res) => {
             },(err, row)=>{
                 const data = row
                 const col = row.length
-                return res.render("cart", {data: data, data_col:col})
-            })
+                let data_top = 0
+                let prev = false
+                let next = true
+                let data_len = 5
+                if(col <= 5){
+                    data_len = col
+                    next = false
+                }
+                app.get("/Cart/prev", (req, res) => {
+                    if(data_top - 5 <= 0){
+                        data_top = 0
+                        prev = false
+                    }else{
+                        data_top -= 5
+                    }
+                    data_len = 5
+                    return res.redirect("/Cart")
+                })
+                app.get("/Cart/next", (req, res) => {
+                    if(data_top + 5 >= col){
+                        data_top += 5
+                        next = false
+                    }else{
+                        data_top += 5
+                        prev = true
+                        if(col - data_top < 5){
+                            data_len = col - data_top
+                        }
+                    }
+                    return res.redirect("/Cuuart")
+                })
+                return res.render("cart", {data: data,
+                    data_col: col,
+                    data_top: data_top,
+                    prev: prev,
+                    next: next,
+                    data_len: data_len
+                })
+        })
     }else{
         return res.redirect("/Login")
     }
 })
+// カゴ内データ更新
 app.post("/Cart/Update", (req, res)=>{
     let updateData = 0
     if(req.body.update == "m"){
@@ -266,6 +309,23 @@ app.post("/Cart/Update", (req, res)=>{
     return res.redirect("/Cart")
 })
 
+// 会計ページ
+app.get("/Check", (req, res) => {
+    if(req.session.login){
+        DB.all(`select * from product
+            join cart_item on product.product_id = cart_item.product_id
+            join cart on cart_item.cart_id = cart.cart_id
+            where cart.user_number = $userNumber`,{
+                $userNumber: req.session.login.userNumber
+            },(err, row)=>{
+                const data = row
+                const col = row.length
+                return res.render("check", {data: data, data_col:col})
+            })
+    }else{
+        return res.redirect("/Login")
+    }
+})
 
 
 // 会員登録システム
