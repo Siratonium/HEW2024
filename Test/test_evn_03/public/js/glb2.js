@@ -1,6 +1,6 @@
 window.addEventListener("load", () => {
     // モーダルの商品ID取得
-    let modalflag = document.getElementsByClassName("puroduct_modal_wrap")[0]
+    let modalflag = document.getElementsByClassName("product_modal_wrap")[0]
 
     console.log(modalflag)
 
