@@ -52,9 +52,7 @@ app.get("/Top", (req, res) => {
 // 棚ページ
 DB.all(`select * 
     from product 
-    join
-    description 
-    on 
+    join description on 
     product.product_id = description.product_id`,
     (err, row) =>{
         let productNo = 0
