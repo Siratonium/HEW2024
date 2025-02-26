@@ -99,16 +99,6 @@ let models = {};
 
         console.log(modelPaths);
 
-
-        // let modelPaths = {
-        //     p_1: 'gltf/p_1.gltf',
-        //     p_2: 'gltf/パインアメ.glb',
-        //     modal3: 'gltf/パインアメ.glb',
-        //     modal4: 'gltf/パインアメ.glb',
-        //     modal5: 'gltf/パインアメ.glb',
-        //     modal6: 'gltf/パインアメ.glb'
-        // };
-
         
         if (!modelPaths[modalId]) {
             console.error(`No model found for modal: ${modalId}`);

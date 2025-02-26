@@ -1,20 +1,53 @@
+/*
+Copyright (c) 2007, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.2.2
+*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}ol,ul {list-style:none;}caption,th {text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym {border:0;}
+
 *{
     margin: 0;
     padding: 0;
     list-style: none;
+    box-sizing: border-box;
 }
 /* input numberの矢印非表示 */
+input[type="number"]::-webkit-outer-spin-button, 
+input[type="number"]::-webkit-inner-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+} 
 input[type="number"]{
-    -webkit-appearance: none;
     -moz-appearance:textfield; 
 }
+/* topページ */
+#top_wrap{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #ff0000;
+    overflow: hidden;
+}
+#back_img{
+    width: 100%;
+    height: 100%;
+    background-color: #007bff;
+}
+#back_img img{
+    width: 100%;
+    object-fit: cover;
+}
+
+
 .signup_block{
     width: 500px;
     display: flex;
     flex-wrap: wrap;
     padding: 10px;
 }
-
 /* MARK:ここ消した */
 .signup_block select{
     width: 85px;
@@ -84,10 +117,10 @@ body {
     margin: 0 auto;
     width: 70%;
 }
-
+/* 
 .signup_block h2 {
     border-bottom: 3px solid gray;
-}
+} */
 
 
 input, select {
@@ -113,7 +146,7 @@ select:focus {
 }
 
 .button {
-    background-color: #007bff;
+    /* background-color: #007bff; */
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -138,17 +171,32 @@ select:focus {
     text-align: center;
 }
 
+/* MARK:下線 */
+.border_bottom{
+    border-bottom: 3px solid gray;
+}
+
+/* MARK:button */
+.button_wrapper {
+    width: 15%;
+    margin: 0 auto;
+}
+.button:hover {
+    background-color: #0056b3;
+    color: #e0e0e0;
+}
+
 /* MARK:必須任意css */
-.signup_block p::before {
+.requiredItem::before {
     position: relative;
     color: #fff;
     content: "必須";
     background-color: #ff0000;
-    font-size: 1rem;
+    font-size: 0.8rem;
     right: 10px;
     border-radius: 8px;
-    padding: 2.5px 10px;
-    vertical-align: middle;
+    padding: 0.5px 6px;
+    /* vertical-align: middle; */
     /* margin: auto 0; */
 }
 
@@ -160,10 +208,10 @@ select:focus {
     color: #fff;
     content: "任意";
     background-color: #c8c8c8;
-    font-size: 1rem;
+    font-size: 0.8rem;
     right: 10px;
     border-radius: 8px;
-    padding: 2.5px 10px;
+    padding: 0.5px 6px;
 }
 
 /* MARK: */
@@ -188,7 +236,7 @@ select:focus {
     padding: 20px;
 }
 /* 商品モーダル */
-.puroduct_modal_wrap{
+#puroduct_modal_wrap{
     width: 100%;
     height: 100%;
     position: absolute;
@@ -222,7 +270,7 @@ select:focus {
     flex-wrap: wrap;
 }
 .cart_data img{
-    width: 15%;
+    width: 10%;
 }
 .product_data{
     width: 85%;
@@ -250,28 +298,23 @@ select:focus {
     width: 100%;
     height: 80px;
     border-bottom: #000 1px solid;
+    background-color: #fff5c5;
     display: flex;
     justify-content: space-between;
     overflow: hidden;
+    position: absolute;
 }
 #logo{
-    width: 20%;
+    width: 10%;
     display: flex;
     border-right: 1px #000 solid;
 }
-#logo_icon{
-    width: 80px;
-    height: 80px;
-}
-#logo_icon img{
-    width: 100%;
-}
 #logo_titol{
-    width: 200px;
-    height: 80px;
+    width: 100px;
+    height: 100%;
 }
 #logo_titol img{
-    width: 100%;
+   height: 100%;
 }
 #search{
     width: 50%;
