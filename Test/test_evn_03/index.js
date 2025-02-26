@@ -259,7 +259,7 @@ app.get("/Cart", (req, res) => {
                             data_len = col - data_top
                         }
                     }
-                    return res.redirect("/Cuuart")
+                    return res.redirect("/Cart")
                 })
                 return res.render("cart", {data: data,
                     data_col: col,
