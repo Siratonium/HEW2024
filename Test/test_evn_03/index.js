@@ -218,8 +218,8 @@ app.get("/delete_cart", (req, res)=>{
     DB.run(`delete from cart_item`)
     return res.redirect("Shelf")
 })
-// カゴページ
 
+// カゴページ
 app.get("/Cart", (req, res) => {
     if(req.session.login){
         DB.all(`select * from product
@@ -238,6 +238,16 @@ app.get("/Cart", (req, res) => {
                     data_len = col
                     next = false
                 }
+                app.get("/cart", (req, res) => {
+                    console.log(data_top)
+                    return res.render("cart", {data: data,
+                        data_col: col,
+                        data_top: data_top,
+                        prev: prev,
+                        next: next,
+                        data_len: data_len
+                    })
+                })
                 app.get("/Cart/prev", (req, res) => {
                     if(data_top - 5 <= 0){
                         data_top = 0
@@ -246,20 +256,11 @@ app.get("/Cart", (req, res) => {
                         data_top -= 5
                     }
                     data_len = 5
-                    return res.redirect("/Cart")
+                    return res.redirect("/cart")
                 })
                 app.get("/Cart/next", (req, res) => {
-                    if(data_top + 5 >= col){
-                        data_top += 5
-                        next = false
-                    }else{
-                        data_top += 5
-                        prev = true
-                        if(col - data_top < 5){
-                            data_len = col - data_top
-                        }
-                    }
-                    return res.redirect("/Cart")
+                    data_top += 5
+                    return res.redirect("/cart")
                 })
                 return res.render("cart", {data: data,
                     data_col: col,
@@ -273,6 +274,7 @@ app.get("/Cart", (req, res) => {
         return res.redirect("/Login")
     }
 })
+
 // カゴ内データ更新
 app.post("/Cart/Update", (req, res)=>{
     let updateData = 0
@@ -324,6 +326,14 @@ app.get("/Check", (req, res) => {
         return res.redirect("/Login")
     }
 })
+
+
+
+
+
+
+
+
 
 
 // 会員登録システム
