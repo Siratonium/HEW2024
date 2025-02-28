@@ -25,6 +25,7 @@ input[type="number"]{
 #top_wrap{
     width: 100vw;
     height: 100vh;
+    height: auto;
     position: absolute;
     top: 0;
     left: 0;
@@ -32,13 +33,14 @@ input[type="number"]{
     overflow: hidden;
 }
 #back_img{
-    width: 100%;
-    height: 100%;
+    width: 90%;
     background-color: #007bff;
 }
 #back_img img{
     width: 100%;
-    object-fit: cover;
+}
+area{
+    border: #000 1px solid;
 }
 
 
