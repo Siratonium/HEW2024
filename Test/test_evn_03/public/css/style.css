@@ -42,6 +42,59 @@ input[type="number"]{
 }
 
 
+<<<<<<< HEAD
+=======
+
+
+/* ログイン画面 */
+.login_block{
+    width: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    margin: 0 auto;
+}
+.login_block p{
+    width: 100%;
+    margin: 5px 0;
+}
+.login_block input{
+    /* width: 50%; */
+    /* margin: 10px 200px 5px auto; */
+}
+
+/* aデザイン */
+.signup_link {
+    display: block;
+    text-align: center;
+    margin: 10px 0;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+a:hover {
+    color: #2e85e2;
+    text-shadow: 0 0 1px rgba(0, 123, 255, 0.5);
+}
+
+
+/* MARK:以下 */
+body {
+    font-family: "Noto Sans JP", sans-serif;
+}
+/* MARK:signup */
+/* MARK:※消したい */
+/* mainにクラスつけた */
+/* baseにフォント追加した */
+.signup_form, .login_form {
+    margin: 10px 0;
+}
+
+>>>>>>> 0f1481ad7d892f0be9ce79d7ef198e4f001daea8
 .signup_block{
     width: 500px;
     display: flex;
@@ -60,11 +113,7 @@ input[type="number"]{
     width: 40%;
     padding: 8px 0;
 }
-.signup_block p::after{
-    content: "*";
-    font-size: 10px;
-    color: red;
-}
+
 .signup_block input{
     width: 50%;
     margin: 10px 0;
@@ -74,39 +123,14 @@ input[type="number"]{
     color: red;
     font-size: 12px;
 }
-
-/* ログイン画面 */
-.login_block{
-    width: 500px;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 10px;
-}
-.login_block p{
-    width: 100%;
-    margin: 5px 0;
-}
-.login_block input{
-    width: 50%;
-    margin: 10px 200px 5px auto;
-}
-
-
-/* MARK:以下 */
-body {
-    font-family: "Noto Sans JP", sans-serif;
-}
-/* MARK:会員登録 */
-/* MARK:※消したい */
-/* mainにクラスつけた */
-/* baseにフォント追加した */
-.signup_wrapper {
+.signup_wrapper, .login_wrapper {
     width: 80%;
-    margin: 0 auto;
+    margin: 5% auto;
     box-shadow: 0 0 5px #c0c6c9;
+    border-radius: 5px;
 }
 
-.signup_wrapper h1{
+.signup_wrapper h1, .login_wrapper h1 {
     font-weight: 500;
     font-size: 2.5rem;
     padding: 50px;
@@ -147,20 +171,23 @@ select:focus {
 
 .button {
     /* background-color: #007bff; */
+<<<<<<< HEAD
+=======
+    transition: 0.3s;
+>>>>>>> 0f1481ad7d892f0be9ce79d7ef198e4f001daea8
     color: #fff;
     border: none;
     padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 1rem;
-    margin-bottom: 50px;
 }
 
 /* MARK:login */
 
 .login_wrapper {
     width: 80%;
-    margin: 0 auto;
+    /* margin: 0 auto; */
     box-shadow: 0 0 5px #c0c6c9;
 }
 
@@ -171,9 +198,16 @@ select:focus {
     text-align: center;
 }
 
+<<<<<<< HEAD
 /* MARK:下線 */
 .border_bottom{
     border-bottom: 3px solid gray;
+=======
+
+/* MARK:下線 */
+.border_bottom{
+    border-bottom: 2px solid #c6b397;
+>>>>>>> 0f1481ad7d892f0be9ce79d7ef198e4f001daea8
 }
 
 /* MARK:button */
@@ -236,7 +270,11 @@ select:focus {
     padding: 20px;
 }
 /* 商品モーダル */
+<<<<<<< HEAD
 #puroduct_modal_wrap{
+=======
+.product_modal_wrap{
+>>>>>>> 0f1481ad7d892f0be9ce79d7ef198e4f001daea8
     width: 100%;
     height: 100%;
     position: absolute;
@@ -246,7 +284,7 @@ select:focus {
     justify-content: center;
     align-items: center;
 }
-#puroduct_modal{
+#product_modal{
     width: 800px;
     height: 450px;
     background-color: #fff;

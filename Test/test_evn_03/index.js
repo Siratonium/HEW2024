@@ -218,6 +218,7 @@ app.get("/delete_cart", (req, res)=>{
     DB.run(`delete from cart_item`)
     return res.redirect("Shelf")
 })
+
 // カゴページ
 
 app.get("/Cart", (req, res) => {
@@ -238,6 +239,19 @@ app.get("/Cart", (req, res) => {
                     data_len = col
                     next = false
                 }
+<<<<<<< HEAD
+=======
+                app.get("/cart", (req, res) => {
+                    console.log(data_top)
+                    return res.render("cart", {data: data,
+                        data_col: col,
+                        data_top: data_top,
+                        prev: prev,
+                        next: next,
+                        data_len: data_len
+                    })
+                })
+>>>>>>> 0f1481ad7d892f0be9ce79d7ef198e4f001daea8
                 app.get("/Cart/prev", (req, res) => {
                     if(data_top - 5 <= 0){
                         data_top = 0
@@ -246,6 +260,7 @@ app.get("/Cart", (req, res) => {
                         data_top -= 5
                     }
                     data_len = 5
+<<<<<<< HEAD
                     return res.redirect("/Cart")
                 })
                 app.get("/Cart/next", (req, res) => {
@@ -260,6 +275,13 @@ app.get("/Cart", (req, res) => {
                         }
                     }
                     return res.redirect("/Cart")
+=======
+                    return res.redirect("/cart")
+                })
+                app.get("/Cart/next", (req, res) => {
+                    data_top += 5
+                    return res.redirect("/cart")
+>>>>>>> 0f1481ad7d892f0be9ce79d7ef198e4f001daea8
                 })
                 return res.render("cart", {data: data,
                     data_col: col,
@@ -273,6 +295,10 @@ app.get("/Cart", (req, res) => {
         return res.redirect("/Login")
     }
 })
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0f1481ad7d892f0be9ce79d7ef198e4f001daea8
 // カゴ内データ更新
 app.post("/Cart/Update", (req, res)=>{
     let updateData = 0
@@ -324,6 +350,17 @@ app.get("/Check", (req, res) => {
         return res.redirect("/Login")
     }
 })
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+
+
+>>>>>>> 0f1481ad7d892f0be9ce79d7ef198e4f001daea8
 
 
 // 会員登録システム
