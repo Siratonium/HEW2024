@@ -220,6 +220,7 @@ app.get("/delete_cart", (req, res)=>{
 })
 
 // カゴページ
+
 app.get("/Cart", (req, res) => {
     if(req.session.login){
         DB.all(`select * from product
@@ -256,6 +257,20 @@ app.get("/Cart", (req, res) => {
                         data_top -= 5
                     }
                     data_len = 5
+                    return res.redirect("/Cart")
+                })
+                app.get("/Cart/next", (req, res) => {
+                    if(data_top + 5 >= col){
+                        data_top += 5
+                        next = false
+                    }else{
+                        data_top += 5
+                        prev = true
+                        if(col - data_top < 5){
+                            data_len = col - data_top
+                        }
+                    }
+                    return res.redirect("/Cart")
                     return res.redirect("/cart")
                 })
                 app.get("/Cart/next", (req, res) => {
@@ -326,16 +341,6 @@ app.get("/Check", (req, res) => {
         return res.redirect("/Login")
     }
 })
-
-
-
-
-
-
-
-
-
-
 // 会員登録システム
 let ErrorString = {}
 function initError(){
