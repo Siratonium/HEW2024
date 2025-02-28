@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画面拡大率確認</title>
+</head>
+<body>
+    <div id="dis">
+        <table>
+            <tr>
+                <td>画面幅：</td>
+                <th id="width"></th>
+            </tr>
+            <tr>
+                <td>画面高さ：</td>
+                <th id="height"></th>
+            </tr>
+        </table>
+        <div id="img">
+            <img src="top_back.png" width="1920" height="1080" alt="背景">
+        </div>
+    </div>
+</body>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    /* #dis{
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        background-color: aqua;
+        z-index: 1;
+    } */
+    #img{
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    table{
+        margin: 20px;
+        position: absolute;
+        z-index: 1;
+        background-color: aliceblue;
+    }
+</style>
+<script>
+    const winWidth = window.screen.width
+    const winHeight = window.screen.height
+
+    const winW = document.getElementById("width")
+    const winH = document.getElementById("height")
+
+    winW.textContent = winWidth
+    winH.textContent = winHeight
+
+    console.log(winW, winH)
+</script>
+</html>

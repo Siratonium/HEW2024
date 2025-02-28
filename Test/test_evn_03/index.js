@@ -16,6 +16,10 @@ const app = express()
 // const port = 3000
 const port = 80
 
+// const width = window.screen.width
+// const height = window.screen.height
+// console.log(width, height)
+
 app.set("view engine", "ejs")
 app.use(express.static("public"))
 app.use(express.urlencoded({
