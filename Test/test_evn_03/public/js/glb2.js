@@ -1,46 +1,21 @@
 window.addEventListener("load", () => {
     // モーダルの商品ID取得
-    let modalflag = document.getElementsByClassName("product_modal_wrap")[0]
+    let modalflag = document.getElementsByClassName("product_modal_wrap")[0];
 
-    console.log(modalflag)
+    console.log(modalflag);
 
-    if (modalflag){
+    if (modalflag) {
         // モーダルの商品ID取得
-        const modal_id = modalflag.id
-        console.log(modal_id)
+        const modal_id = modalflag.id;
+        console.log(modal_id);
+        
         // 商品IDに対応したモデルの出力
-
         setTimeout(() => initThreeJs(modal_id), 100);
-
     }
 
-
-    
-//     const openModalBtns = document.querySelectorAll(".link");
-
-
-//     openModalBtns.document.addEventListener("DOMContentLoaded", () => {
-//     const openModalBtns = document.querySelectorAll(".link");
-//     let scenes = {}, cameras = {}, renderers = {}, controls = {}, loaders = {};
-//     let animationIds = {};
-//     let models = {}; 
-
-//     openModalBtns.forEach(link => {
-//         link.addEventListener("click", (e)=> {
-//             const modalId = e.target.id
-//             console.log(modalId)
-//             const modalElement = document.getElementById(modalId);
-//             modalElement.style.display = "block";
-//             console.log(`Modal opened: ${modalId}`);
-//             setTimeout(() => initThreeJs(modalId), 100);
-//         });
-//     });
-
-   
-let scenes = {}, cameras = {}, renderers = {}, controls = {}, loaders = {};
-let animationIds = {};
-let models = {}; 
-
+    let scenes = {}, cameras = {}, renderers = {}, controls = {}, loaders = {};
+    let animationIds = {}, models = {}; 
+    let isUserInteracting = false; // マウス操作中かどうかを判定するフラグ
 
     function initThreeJs(modalId) {
         const canvasContainer = document.getElementById(`tCC-${modalId}`);
@@ -77,29 +52,42 @@ let models = {};
         controls[modalId].enablePan = false;
         controls[modalId].enableDamping = true;
 
+        // マウス操作の開始・終了を検知
+        controls[modalId].addEventListener('start', () => { isUserInteracting = true; });
+        controls[modalId].addEventListener('end', () => { isUserInteracting = false; });
+        const textureLoader = new THREE.TextureLoader();
+        textureLoader.load('nanimoirenai', function(texture) {
+            const backgroundGeometry = new THREE.PlaneGeometry(20, 20); // 背景の大きさ
+            const backgroundMaterial = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
+            const backgroundMesh = new THREE.Mesh(backgroundGeometry, backgroundMaterial);
+            backgroundMesh.position.set(0, 0, -10); // カメラの後ろに配置
+            scenes[modalId].add(backgroundMesh);
+        });
+
         // Load the model specific to the modal
         loadModel(modalId);
         animate(modalId);
     }
 
     function animate(modalId) {
-        if (!renderers[modalId]){return;}
+        if (!renderers[modalId]) { return; }
         animationIds[modalId] = requestAnimationFrame(() => animate(modalId));
-        controls[modalId].update();
+        if (!isUserInteracting && models[modalId]) {
+            models[modalId].rotation.y += 0.01; //ここで速度かえる
+        }
+        controls[modalId].update(); 
         renderers[modalId].render(scenes[modalId], cameras[modalId]);
     }
 
     function loadModel(modalId) {
-
         let modelPaths = {};
 
         for (let i = 1; i < 30; i++) {
-        modelPaths['p_' + i] = 'gltf/p_' + i + '.glb';
+            modelPaths['p_' + i] = 'gltf/p_' + i + '.glb';
         }
 
         console.log(modelPaths);
 
-        
         if (!modelPaths[modalId]) {
             console.error(`No model found for modal: ${modalId}`);
             return;
