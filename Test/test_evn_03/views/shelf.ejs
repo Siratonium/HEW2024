@@ -1,9 +1,6 @@
-<%-include ("base") %>
+<%- include ("base") %>
+<%- include ("header") %>
 <!-- <h1>商品ページ</h1> -->
-<div id="product_ctrl">
-    <a href="/Shelf/prev"><%- prev ? "＜戻る" : "" %></a>
-    <a href="/Shelf/next"><%- next ? "次へ＞" : "" %></a>
-</div>
 <style>
     .tCC {
         width: 40%; 
@@ -26,6 +23,10 @@
 </style>
 <!-- 商品一覧 -->
 <div id="product_block">
+    <div id="product_ctrl">
+        <a href="/Shelf/prev"><%- prev ? "＜戻る" : "" %></a>
+        <a href="/Shelf/next"><%- next ? "次へ＞" : "" %></a>
+    </div>
     <% for (i = productNo; i < productNo + 30; i++) {%>
         <div class="product">
             <a href="Shelf/<%- rows[i] ? rows[i].product_id : "" %>" class = "link" id = "<%-rows[i].product_id%>" >

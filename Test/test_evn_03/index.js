@@ -54,8 +54,21 @@ app.get("/", (req, res)=> {
 })
 // TOPページ（本番用）
 app.get("/Top", (req, res) => {
-    return res.render("top")
+    // セッション内容処理
+    const sessionKeys = Object.keys(req.session)
+    sessionKeys.forEach(e => {
+        if ( e != "cookie" & e != "login"){
+            req.session[e] = ""
+        }
+    })
+    return res.render("top", {session: req.session})
 })
+
+// ポスター
+app.get("/Poster", (req, res) => {
+    return res.render("poster", {session: req.session})
+})
+
 // 棚ページ
 DB.all(`select * 
     from product 
@@ -79,7 +92,8 @@ DB.all(`select *
                             productNo: productNo,
                             next: next,
                             prev: prev,
-                            modal: modal
+                            modal: modal,
+                            session: req.session
                         }) 
                     }
                 }
@@ -250,7 +264,8 @@ app.get("/Cart", (req, res) => {
                     data_top: data_top,
                     prev: prev,
                     next: next,
-                    data_len: data_len
+                    data_len: data_len,
+                    session: req.session
                 })
         })
     }else{
@@ -303,7 +318,11 @@ app.get("/Check", (req, res) => {
             },(err, row)=>{
                 const data = row
                 const col = row.length
-                return res.render("check", {data: data, data_col:col})
+                return res.render("check", {
+                    data: data,
+                    data_col:col,
+                    session: req.session
+                })
             })
     }else{
         return res.redirect("/Login")
@@ -315,7 +334,7 @@ app.get("/Buy", (req, res) => {
     if(req.session.login){
         // データベースの削除
         const user = req.session.login.userNumber
-        console.log(user)
+        // console.log(user)
         DB.all(`select *
             from cart_item
             join cart on
@@ -338,13 +357,9 @@ app.get("/Buy", (req, res) => {
                     })
                 })
         })
-
-
-
-
         // 発送日計算（今日＋3日）
         // 当日から計算で直打ち
-        return res.render("buy_comp")
+        return res.render("buy_comp",{session: req.session})
     }else{
         return res.redirect("/Login")
     }
@@ -465,7 +480,7 @@ app.post("/Login", (req, res) => {
                             userNumber : row.user_number,
                             userID : row.user_id
                         }
-                        return res.redirect("/")
+                        return res.redirect("/Top")
                     }else{
                         req.session.loginErr = "ユーザ名、メールアドレスまたはパスワードが違います。"
                         return res.render("login", {session: req.session})
@@ -481,7 +496,7 @@ app.post("/Login", (req, res) => {
 // ログアウトシステム
 app.get("/Logout", (req, res)=> {
     req.session.login = false
-    return res.redirect("/")    
+    return res.redirect("/Top")    
 })
 // 3D画像表示
 app.get("/Cg", (req, res) => {

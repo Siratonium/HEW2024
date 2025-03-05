@@ -1,14 +1,19 @@
 <%-include ("base") %>
+<%- include ("header") %>
 <!-- 階層に関して、特になし -->
 <!-- id,calssに関して、特になし -->
 <!-- 表示データの追加・変更に関して、要相談 -->
 <!-- データが無ければ空文を表示 -->
+ <div id="_cart"></div>
 <% if (data_col == 0) {%>
     <!-- カゴの中身が空の時の処理 -->
-    <h2>かごに入ってる商品はありません。</h2>
-
-
-    
+    <div class="cart_content">
+        <h1>カート内の商品</h1>
+        <div class="cart_none_data">
+            <p id="none">かごに入ってる商品はありません。</p id="none">
+        </div>
+        <a href="/Shelf"><button class="cart_button">買い物へ戻る</button></a>
+    </div>
 <% }else{ %>
     <!-- データの数だけfor文を回す -->
     <% total_fee = 0 %>
@@ -16,7 +21,8 @@
     <!--  -->
     <div class="cart_content">
         <h1>カート内の商品</h1>
-        <% for (i = 0; i < data_col; i++) {%>
+        <div class="cart_data_div">
+            <% for (i = 0; i < data_col; i++) {%>
                 <form action="/Cart/Update" method="post" class="cart_data">
                     <img src="image/noimage.jpg" alt="">
                     <div class="product_data">
@@ -33,17 +39,23 @@
                         </ul>
                     </div>
                 </form>
-        <% } %>
+            <% } %>
+        </div>
         <% for(i = 0; i < data_col; i++) {%>
             <% total_fee += data[i].quantity * data[i].fee %>
             <% total_item += data[i].quantity %>
         <% } %>
         <p class="item_count">カート内の商品：<%- total_item %>点</p>
         <p class="price">合計：<%- total_fee %>円</p>
-        <a href="/Check"><button class="cart_button">購入へ進む</button></a>
+        <div class="buttons">
+            <a href="/Shelf"><button class="cart_button">買い物を続ける</button></a>
+            <a href="/Check"><button class="cart_button">購入へ進む</button></a>
+        </div>
     </div>
-
 <% } %>
-<a href="/">TOPページ</a>
-<a href="/Shelf">棚ページ</a>
+<div id="cart_back_img">
+    <img id="back_img" src="image/background/kago.png" usemap="#shelf_map" alt="" />
+</div>
+<!-- <a href="/">TOPページ</a> -->
+<!-- <a href="/Shelf">棚ページ</a> -->
 <%-include ("footer") %>

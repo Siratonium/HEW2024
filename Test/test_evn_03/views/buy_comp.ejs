@@ -1,10 +1,17 @@
 <%-include ("base") %>
-<h1>購入完了</h1>
-<div>
-    <h2>購入が完了しました。</h2>
-    <p>3</p><p>月</p><p>8</p><p>日</p>
-    <p>までのお届けとなります。</p>
+<%- include ("header") %>
+
+<div id="buy_comp">
+    <h1>ご購入ありがとうございました。</h1>
+    <div id="delivery">
+        <p>購入された商品は</p>
+        <b>3</b><b>月</b><b>8</b><b>日</b>
+        <p>までにお届けいたします。</p>
+    </div>
+    <div class="buttons">
+        <a href="/Top"><button class="purchase_button">TOPページへ</button></a>
+    </div>
 </div>
-<a href="/">TOPページ</a>
-<a href="/Shelf">棚ページ</a>
+<!-- <a href="/Top">TOPページ</a> -->
+<!-- <a href="/Shelf">棚ページ</a> -->
 <%-include ("footer") %>

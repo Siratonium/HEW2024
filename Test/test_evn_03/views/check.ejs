@@ -1,4 +1,5 @@
-<%-include ("base") %>
+<%- include ("base") %>
+<%- include ("header") %>
 <!-- 階層に関して、特になし -->
 <!-- id,calssに関して、特になし -->
 <!-- 表示データの追加・変更に関して、要相談 -->
@@ -6,17 +7,22 @@
 <% if (data_col == 0) {%>
     <!-- カゴの中身が空の時の処理 -->
     <h2>かごに入ってる商品はありません。</h2>
-
-
-
+    <div class="cart_content">
+        <h1>カート内の商品</h1>
+        <div class="cart_none_data">
+            <p id="none">かごに入ってる商品はありません。</p id="none">
+        </div>
+        <a href="/Shelf"><button class="purchase_button">買い物へ戻る</button></a>
+    </div>
 <% }else{ %>
     <!-- データの数だけfor文を回す -->
     <% total_fee = 0 %>
     <% total_item = 0 %>
     <!--  -->
     <div class="cart_content">
-    <h1>会計ページ</h1>
-    <% for (i = 0; i<data_col; i++) {%>
+        <h1>会計ページ</h1>
+        <div class="cart_data_div">
+            <% for (i = 0; i<data_col; i++) {%>
                 <form action="/Cart/Update" method="post" class="cart_data">
                     <img src="image/noimage.jpg" alt="">
                     <div class="product_data">
@@ -35,15 +41,22 @@
                 </form>
                 <% total_fee += data[i].quantity * data[i].fee %>
                 <% total_item += data[i].quantity %>
-        <% } %>
-        <p class="item_count">カートに入っている商品：<%- total_item %>点</p>
-        <p class="price">合計：<%- total_fee %>円</p>
-        <a href="/Buy"><button class="purchase_button">購入確定</button></a>
+            <% } %>
+        </div>
+            <p class="item_count">カートに入っている商品：<%- total_item %>点</p>
+            <p class="price">合計：<%- total_fee %>円</p>
+            <div class="buttons">
+                <a href="/Shelf"><button class="purchase_button">買い物を続ける</button></a>
+                <a href="/Buy"><button class="purchase_button">購入確定</button></a>
+            </div>
     </div>
 <% } %>
+<!-- <a href="/">TOPページ</a> -->
+<!-- <a href="/Shelf">棚ページ</a> -->
 <div id="check_back_img">
-    <img id="back_img" src="image/background/Check.png" usemap="#shelf_map" alt="" />
+    <img id="back_img" src="image/background/Check.png" usemap="#check_map" alt="" />
+    <map name="check_map">
+        <area shape="poly" class="hover" id="cat" coords="239,521,194,593,158,606,125,604,2,564,3,754,42,856,87,912,118,997,127,1050,150,1065,171,1053,134,885,110,792,123,752,158,749,303,745,314,733,345,713,383,673,299,657,266,618,243,580,242,533" href="/Top" alt="猫" />
+      </map>
 </div>
-<a href="/">TOPページ</a>
-<a href="/Shelf">棚ページ</a>
 <%-include ("footer") %>

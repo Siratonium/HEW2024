@@ -1,4 +1,6 @@
 <%-include ("base") %>
+<%- include ("header", {session: session}) %>
+
 <!-- 階層に関して基本的にformタブの外に出さなければ問題なし -->
 <!-- line14～line25にある生年月日に関しては、line78以降のJSが働いてるためidの変更は不可 -->
 <!-- その他のタブへのid,classの追加・変更は問題なし -->
@@ -14,17 +16,20 @@
             <span><%- ErrorString["user_name"] %></span>
 
             <p class="requiredItem">生年月日</p>
-            <select name="birth_year" id="year">
-                <% for (let i = 1950; i <= nowYear; i++) {%>
-                    <option value="<%- i %>"><%- i %>年</option>
-                <% } %>
-            </select>
-            <select name="birth_month" id="month">
-                <% for (let i = 1; i <= 12; i++) {%>
-                    <option value="<%- i %>"><%- i %>月</option>
-                <% } %>
-            </select>
-            <select name="birth_day" id="day"></select>
+            <div id="birthday">
+                <select name="birth_year" id="year">
+                    <% for (let i = 1950; i <= nowYear; i++) {%>
+                        <option value="<%- i %>"><%- i %>年</option>
+                    <% } %>
+                </select>
+                <select name="birth_month" id="month">
+                    <% for (let i = 1; i <= 12; i++) {%>
+                        <option value="<%- i %>"><%- i %>月</option>
+                    <% } %>
+                </select>
+                <select name="birth_day" id="day"></select>
+            </div>
+
 
             <p class="requiredItem">メールアドレス</p>
             <input type="email" name="user_mail" value="<%- session.user_mail %>" placeholder="ex) sample@xxx.com">
@@ -80,7 +85,7 @@
             <input type="submit" class="button" value="登録">
         </div>
         </form>
-        <a href="/">TOPページへ</a>
+        <!-- <a href="/">TOPページへ</a> -->
 </main>
 <script>
     let month = document.getElementById("month")

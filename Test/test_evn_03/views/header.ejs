@@ -6,7 +6,7 @@
         <!-- ロゴ表示 -->
         <div id="logo">
             <div id="logo_titol">
-                <a href="/">
+                <a href="/Top">
                     <img src="image/rogo/rogo.png" alt="logo">
                 </a>
             </div>
@@ -14,14 +14,20 @@
         <!-- 検索バー -->
         <div id="search">
             <input type="text">
+            <a href="/Poster"><button>検索</button></a>
         </div>
         <!-- その他アイコン -->
         <div id="link_icon">
-            <li>カゴ</li>
-            <li>お気に入り</li>
-            <li>マイページ</li>
-            <li>ログイン</li>
-            <li>会員登録</li>
+            <li><a href="/Shelf">商品一覧</a></li>
+            <li><a href="/Cart">かご</a></li>
+            <li><a href="/Check">お会計</a></li>
+            <li><a href="/Poster">ランキング</a></li>
+            <% if (session.login) {%>
+                <li><a href="/Logout">ログアウト</a>
+            <% }else{ %>
+                <li><a href="/Login">ログイン</a></li>
+                <li><a href="/Signup">会員登録</a></li>
+            <% } %>
         </div>
     </div>
 </header>

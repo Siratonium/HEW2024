@@ -58,3 +58,54 @@ if(isShelf){
         })
     }
 }
+// 会計ページ
+let isCart = document.getElementById("check_back_img")
+if(isCart){
+    let hoverAreas = document.getElementsByClassName("hover")
+    console.log(hoverAreas)
+    for(let i = 0; i < hoverAreas.length; i++){
+        let img = document.getElementById("back_img")    
+        hoverAreas[i].addEventListener("mouseover", (e)=>{
+        if(e.target.id == "cat"){
+                img.src = "image/background/Check_hover_neko.png"
+
+            }
+        })
+        hoverAreas[i].addEventListener("mouseout", (e)=>{
+            img.src = "image/background/Check.png"
+
+        })
+    }
+}
+
+// ポスターページ
+let isPoster = document.getElementById("poster_back_img")
+if(isPoster){
+    let hoverAreas = document.getElementsByClassName("hover")
+    console.log(hoverAreas)
+    for(let i = 0; i < hoverAreas.length; i++){
+        let img = document.getElementById("back_img")    
+        hoverAreas[i].addEventListener("mouseover", (e)=>{
+            if(e.target.id == "top"){
+                img.src = "image/background/gomenne_hover_topPage.png"
+
+            }else if(e.target.id == "product"){
+                img.src = "image/background/gomenne_hover_shelf.png"
+
+            }else if(e.target.id == "cart"){
+                img.src = "image/background/gomenne_hover_kago.png"
+
+            }else if(e.target.id == "check"){
+                img.src = "image/background/gomenne_hover_check.png"
+
+            }else if(e.target.id == "logout"){
+                img.src = "image/background/gomenne_hover_logout.png"
+
+            }
+        })
+        hoverAreas[i].addEventListener("mouseout", (e)=>{
+            img.src = "image/background/gomenne.png"
+
+        })
+    }
+}
