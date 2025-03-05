@@ -6,17 +6,13 @@
 <% if (data_col == 0) {%>
     <h2>かごに入ってる商品はありません。</h2>
 <% }else{ %>
-    <div id="cart_ctrl">
-        <a href="/Cart/prev"><%- prev ? "＜戻る" : "" %></a>
-        <a href="/Cart/next"><%- next ? "次へ＞" : "" %></a>
-    </div>
     <!-- データの数だけfor文を回す -->
     <% total_fee = 0 %>
     <% total_item = 0 %>
     <!--  -->
     <div class="cart_content">
         <h1>カート内の商品</h1>
-        <% for (i = data_top; i < data_top + data_len; i++) {%>
+        <% for (i = 0; i < data_col; i++) {%>
                 <form action="/Cart/Update" method="post" class="cart_data">
                     <img src="image/noimage.jpg" alt="">
                     <div class="product_data">
