@@ -8,7 +8,7 @@
     <h2>かごに入ってる商品はありません。</h2>
 
 
-    
+
 <% }else{ %>
     <!-- データの数だけfor文を回す -->
     <% total_fee = 0 %>
@@ -40,8 +40,10 @@
         <p class="price">合計：<%- total_fee %>円</p>
         <a href="/Buy"><button class="purchase_button">購入確定</button></a>
     </div>
-
 <% } %>
+<div id="check_back_img">
+    <img id="back_img" src="image/background/Check.png" usemap="#shelf_map" alt="" />
+</div>
 <a href="/">TOPページ</a>
 <a href="/Shelf">棚ページ</a>
 <%-include ("footer") %>
