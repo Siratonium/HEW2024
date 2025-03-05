@@ -6,8 +6,11 @@ const moment = require("moment")
 const currentTime = moment()
 const today = currentTime.format("YYYY-MM-DD")
 const nowYear = currentTime.format("YYYY")
+const nowMon = currentTime.format("MM")
+const nowDay = currentTime.format("DD")
 const bcrypt = require("bcrypt")
 const { render } = require("ejs")
+
 
 const Max = function (a, b) {return Math.max(a, b);}
 const Min = function (a, b) {return Math.min(a, b);}
@@ -224,7 +227,6 @@ app.get("/delete_cart", (req, res)=>{
 })
 
 // カゴページ
-
 app.get("/Cart", (req, res) => {
     if(req.session.login){
         DB.all(`select * from product
@@ -243,44 +245,6 @@ app.get("/Cart", (req, res) => {
                     data_len = col
                     next = false
                 }
-                app.get("/cart", (req, res) => {
-                    console.log(data_top)
-                    return res.render("cart", {data: data,
-                        data_col: col,
-                        data_top: data_top,
-                        prev: prev,
-                        next: next,
-                        data_len: data_len
-                    })
-                })
-                app.get("/Cart/prev", (req, res) => {
-                    if(data_top - 5 <= 0){
-                        data_top = 0
-                        prev = false
-                    }else{
-                        data_top -= 5
-                    }
-                    data_len = 5
-                    return res.redirect("/Cart")
-                })
-                app.get("/Cart/next", (req, res) => {
-                    if(data_top + 5 >= col){
-                        data_top += 5
-                        next = false
-                    }else{
-                        data_top += 5
-                        prev = true
-                        if(col - data_top < 5){
-                            data_len = col - data_top
-                        }
-                    }
-                    return res.redirect("/Cart")
-                    return res.redirect("/cart")
-                })
-                app.get("/Cart/next", (req, res) => {
-                    data_top += 5
-                    return res.redirect("/cart")
-                })
                 return res.render("cart", {data: data,
                     data_col: col,
                     data_top: data_top,
@@ -345,6 +309,20 @@ app.get("/Check", (req, res) => {
         return res.redirect("/Login")
     }
 })
+
+// 購入確定
+app.get("/Buy", (req, res) => {
+    // データベースの削除
+    //カートテーブル 
+    //カートアイテムテーブル
+    // 発送日計算（今日＋3日）
+    console.log(today)
+    return res.render("buy_comp")
+})
+
+
+
+
 // 会員登録システム
 let ErrorString = {}
 function initError(){

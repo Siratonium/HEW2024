@@ -52,7 +52,6 @@ window.addEventListener("load", () => {
         controls[modalId].enablePan = false;
         controls[modalId].enableDamping = true;
 
-        // マウス操作の開始・終了を検知
         controls[modalId].addEventListener('start', () => { isUserInteracting = true; });
         controls[modalId].addEventListener('end', () => { isUserInteracting = false; });
         const textureLoader = new THREE.TextureLoader();
