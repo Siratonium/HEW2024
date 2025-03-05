@@ -4,7 +4,7 @@ Code licensed under the BSD License:
 http://developer.yahoo.net/yui/license.txt
 version: 2.2.2
 */
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}ol,ul {list-style:none;}caption,th {text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym {border:0;}area{z-index: 100;}
+html{overflow: hidden;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}ol,ul {list-style:none;}caption,th {text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym {border:0;}area{z-index: 100;}
 
 *{
     margin: 0;
@@ -113,7 +113,7 @@ body {
     color: red;
     font-size: 12px;
 }
-.login_wrapper, .cart_content, #buy_comp {
+.login_wrapper, .cart_content, #buy_comp, #sign_comp {
     width: 60%;
     box-shadow: 0 0 5px #c0c6c9;
     border-radius: 5px;
@@ -125,7 +125,7 @@ body {
 }
 .signup_wrapper{
     width: 60%;
-    margin: 2% auto;
+    margin: 2% auto 10%;
     box-shadow: 0 0 5px #c0c6c9;
     border-radius: 5px;
     background-color: #fff;
@@ -510,7 +510,7 @@ header{
     /* border-bottom: #000 1px solid; */
     display: flex;
     justify-content: space-between;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 #logo{
     width: 8%;
@@ -685,7 +685,7 @@ header{
 #buy_comp{
     padding: 5%;
 }
-#buy_comp h1{
+#buy_comp h1, #sign_comp h1{
     width: 100%;
     font-size: 40px;
     text-align: center;
@@ -705,7 +705,7 @@ header{
 #delivery b{
     color: red;
 }
-#buy_comp .buttons{
+#buy_comp .buttons, #sign_comp .buttons{
     width: 100%;
     display: flex;
     justify-content: center;
@@ -736,4 +736,12 @@ header{
     font-size: 30px;
     margin: 8px;
     color: gray;
+}
+.wrapper{
+    width: 100vw;
+    height: 100vh;
+    overflow-y: scroll;
+}
+#sign_comp{
+    padding: 5%;
 }

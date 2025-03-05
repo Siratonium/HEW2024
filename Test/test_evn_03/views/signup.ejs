@@ -4,92 +4,93 @@
 <!-- 階層に関して基本的にformタブの外に出さなければ問題なし -->
 <!-- line14～line25にある生年月日に関しては、line78以降のJSが働いてるためidの変更は不可 -->
 <!-- その他のタブへのid,classの追加・変更は問題なし -->
-
-<main class="signup_wrapper">
-    <h1 class="border_bottom">会員登録</h1>
-    <!-- <form action="/Signup" method="post"> -->
-    <form action="/Signup" method="post" class="signup_form">
-        <!-- 基本情報 -->
-        <div class="signup_block">
-            <h2>基本情報</h2>
-            <p class="requiredItem">名前</p>
-            <input type="text" name="user_name" value="<%- session.user_name %>" placeholder="ex) 山田　太郎">
-            <span><%- ErrorString["user_name"] %></span>
-
-            <p class="requiredItem">生年月日</p>
-            <div id="birthday">
-                <select name="birth_year" id="year">
-                    <% for (let i = 1950; i <= nowYear; i++) {%>
-                        <option value="<%- i %>"><%- i %>年</option>
-                    <% } %>
-                </select>
-                <select name="birth_month" id="month">
-                    <% for (let i = 1; i <= 12; i++) {%>
-                        <option value="<%- i %>"><%- i %>月</option>
-                    <% } %>
-                </select>
-                <select name="birth_day" id="day"></select>
-            </div>
-
-
-            <p class="requiredItem">メールアドレス</p>
-            <input type="email" name="user_mail" value="<%- session.user_mail %>" placeholder="ex) sample@xxx.com">
-            <span><%- ErrorString["user_mail"] %></span>
-
-        </div>
-        <!-- ユーザ情報 -->
-        <div class="signup_block">
-            <h2>ユーザ情報</h2>
-            <p class="requiredItem">ユーザ名</p>
-            <input type="text" name="user_id" value="<%- session.user_id %>" placeholder="ex) Kohirudou">
-            <span><%- ErrorString["user_id"] %></span>
-
-            <p class="requiredItem">パスワード</p>
-            <input type="password" name="password">
-            <span><%- ErrorString["password"] %></span>
-
-            <p class="requiredItem">パスワード確認</p>
-            <input type="password" name="C_password" placeholder="上記と同じパスワードを入力">
-            <span><%- ErrorString["C_password"] %></span>
-
-        </div>
-
-        <!-- 住所 -->
-        <div class="signup_block">
-            <h2>住所</h2>
-
-            <p class="requiredItem">郵便番号</p>
-            <input type="text" name="postcode" value="<%- session.postcode %>" placeholder="ex) 160-0023">
-            <span><%- ErrorString["postcode"] %></span>
-
-
-            <p class="requiredItem">都道府県</p>
-            <input type="text" name="state" value="<%- session.state %>" placeholder="ex) 東京都">
-            <span><%- ErrorString["state"] %></span>
-
-            <p class="requiredItem">市区町村</p>
-            <input type="text" name="city" value="<%- session.city %>" placeholder="ex) 新宿区西新宿">
-            <span><%- ErrorString["city"] %></span>
-
-
-            <p class="requiredItem">丁目・番地</p>
-            <input type="text" name="address_line1" value="<%- session.address_line1 %>" placeholder="ex) 1-7-3">
-            <span><%- ErrorString["address_line1"] %></span>
-
-            <p class="optionalItem">建物名・部屋番号等</p>
-            <input type="text" name="address_line2" value="<%- session.address_line2 %>" placeholder="ex) コクーンタワー30階">
-            <span><%- ErrorString["address_line2"] %></span>
-
-        </div>
-
-        <div class="button_wrapper">
-            <input type="submit" class="button" value="登録">
-        </div>
-        </form>
-        <!-- <a href="/">TOPページへ</a> -->
-</main>
 <div id="any_back_img">
     <img id="back_img" src="image/background/login.png" usemap="#shelf_map" alt="" />
+</div>
+<div class="wrapper">
+    <main class="signup_wrapper">
+        <h1 class="border_bottom">会員登録</h1>
+        <!-- <form action="/Signup" method="post"> -->
+        <form action="/Signup" method="post" class="signup_form">
+            <!-- 基本情報 -->
+            <div class="signup_block">
+                <h2>基本情報</h2>
+                <p class="requiredItem">名前</p>
+                <input type="text" name="user_name" value="<%- session.user_name %>" placeholder="ex) 山田　太郎">
+                <span><%- ErrorString["user_name"] %></span>
+    
+                <p class="requiredItem">生年月日</p>
+                <div id="birthday">
+                    <select name="birth_year" id="year">
+                        <% for (let i = 1950; i <= nowYear; i++) {%>
+                            <option value="<%- i %>"><%- i %>年</option>
+                        <% } %>
+                    </select>
+                    <select name="birth_month" id="month">
+                        <% for (let i = 1; i <= 12; i++) {%>
+                            <option value="<%- i %>"><%- i %>月</option>
+                        <% } %>
+                    </select>
+                    <select name="birth_day" id="day"></select>
+                </div>
+    
+    
+                <p class="requiredItem">メールアドレス</p>
+                <input type="email" name="user_mail" value="<%- session.user_mail %>" placeholder="ex) sample@xxx.com">
+                <span><%- ErrorString["user_mail"] %></span>
+    
+            </div>
+            <!-- ユーザ情報 -->
+            <div class="signup_block">
+                <h2>ユーザ情報</h2>
+                <p class="requiredItem">ユーザ名</p>
+                <input type="text" name="user_id" value="<%- session.user_id %>" placeholder="ex) Kohirudou">
+                <span><%- ErrorString["user_id"] %></span>
+    
+                <p class="requiredItem">パスワード</p>
+                <input type="password" name="password">
+                <span><%- ErrorString["password"] %></span>
+    
+                <p class="requiredItem">パスワード確認</p>
+                <input type="password" name="C_password" placeholder="上記と同じパスワードを入力">
+                <span><%- ErrorString["C_password"] %></span>
+    
+            </div>
+    
+            <!-- 住所 -->
+            <div class="signup_block">
+                <h2>住所</h2>
+    
+                <p class="requiredItem">郵便番号</p>
+                <input type="text" name="postcode" value="<%- session.postcode %>" placeholder="ex) 160-0023">
+                <span><%- ErrorString["postcode"] %></span>
+    
+    
+                <p class="requiredItem">都道府県</p>
+                <input type="text" name="state" value="<%- session.state %>" placeholder="ex) 東京都">
+                <span><%- ErrorString["state"] %></span>
+    
+                <p class="requiredItem">市区町村</p>
+                <input type="text" name="city" value="<%- session.city %>" placeholder="ex) 新宿区西新宿">
+                <span><%- ErrorString["city"] %></span>
+    
+    
+                <p class="requiredItem">丁目・番地</p>
+                <input type="text" name="address_line1" value="<%- session.address_line1 %>" placeholder="ex) 1-7-3">
+                <span><%- ErrorString["address_line1"] %></span>
+    
+                <p class="optionalItem">建物名・部屋番号等</p>
+                <input type="text" name="address_line2" value="<%- session.address_line2 %>" placeholder="ex) コクーンタワー30階">
+                <span><%- ErrorString["address_line2"] %></span>
+    
+            </div>
+    
+            <div class="button_wrapper">
+                <input type="submit" class="button" value="登録">
+            </div>
+            </form>
+            <!-- <a href="/">TOPページへ</a> -->
+    </main>
 </div>
 <script>
     let month = document.getElementById("month")

@@ -1,7 +1,13 @@
 <%-include ("base") %>
-<main class="signup_wrapper">
-    <h1>登録完了</h1>
-    <a href="/Login">ログイン画面へ</a>
-    <a href="/">TOPページへ</a>
-</main>
+<%- include ("header") %>
+
+<div id="sign_comp">
+    <h1>登録が完了しました。</h1>
+    <div class="buttons">
+        <a href="/Top"><button class="purchase_button">TOPページへ</button></a>
+    </div>
+</div>
+<div id="any_back_img">
+    <img id="back_img" src="image/background/login.png" usemap="#shelf_map" alt="" />
+</div>
 <%-include ("footer")  %>

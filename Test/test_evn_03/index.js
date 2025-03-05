@@ -440,7 +440,7 @@ app.post("/Signup", (req, res)=> {
                         // 既存のユーザではないか検査
                             if (err == null){
                                 console.log("登録完了")
-                                return res.render("signup_comp")
+                                return res.render("signup_comp",{session: req.session})
                             }else if(err.errno == 19){
                                 const errRow = err.message.split(" ")[err.message.split(" ").length - 1]
                                 if (errRow == "user.email"){
@@ -458,6 +458,10 @@ app.post("/Signup", (req, res)=> {
 
     }
 })
+// app.get("/Sign_comp", (req, res) => {
+//     return res.render("signup_comp", {session: req.session})
+// })
+
 
 // ログインシステム
 app.get("/Login", (req, res) => {
