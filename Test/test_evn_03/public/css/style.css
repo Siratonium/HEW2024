@@ -52,6 +52,9 @@ body {
     object-fit: cover;
 }
 
+
+
+
 /* ログイン画面 */
 .login_block{
     width: 500px;
@@ -177,7 +180,7 @@ select:focus {
 }
 
 .button {
-    /* background-color: #007bff; */
+    /* background-color: rgb(52, 83, 120); */
     transition: 0.3s;
     color: #fff;
     border: none;
@@ -315,19 +318,45 @@ select:focus {
 #add_cart {
     width: 40%;
 }
-/* カゴページ */
+/* MARK:カゴページ */
+
+.cart_content .item_count {
+    font-size: 1.5rem;
+    /* font-weight: bold; */
+    color: #333;
+    /* margin: 10px 0; */
+    text-align: center;
+}
+
+.cart_content .price {
+    margin: 3% 0;
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 20px;
+    color: #333;
+    background-color: #f8f8f8;
+}
+
+.cart_content h1 {
+    font-weight: 500;
+    font-size: 2.5rem;
+    padding: 50px;
+    text-align: center;
+}
 .cart_content{
     /* width: 100%; */
     height: 80%;
-    margin: auto;
-    padding: 5% 0;
+    margin: 5% auto;
+    padding-bottom: 5%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 .cart_data{
-    width: 80%;
+    width: 90%;
     /* height: 100px; */
     border: 2px solid #c6b397;
     border-radius: 5px;
@@ -358,7 +387,7 @@ select:focus {
     margin: auto 0; 
 }
 .product_data_ctrl{
-    width: 100%;
+    width: 40%;
     height: 20%;
     display: flex;
     align-items: center;
@@ -372,6 +401,88 @@ select:focus {
 .product_data_ctrl .quantity{
     width: 50px;
 }
+
+.minus, .plus{
+    background-color: whitesmoke;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete_button {
+    width: 60px;
+    height: 30px;
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* .cart_button {
+    width: 300px;
+    height: 40px;
+    background-color: rgb(52, 83, 120);
+    color: #fff;
+    border: none;
+    border-radius: 29px;
+    cursor: pointer;
+}
+
+.cart_button:hover {
+    background-color: rgb(52, 83, 120);
+    color: #fff;
+    transform: scale(1.02);
+} */
+
+.cart_button {
+    width: 300px;
+    height: 50px;
+    background-color: rgb(69, 108, 156);
+    color: #fff;
+    border: none;
+    border-radius: 29px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.cart_button:hover {
+    background-color: rgb(52, 83, 120);
+    transform: scale(1.05);
+}
+
+/* MARK:check */
+.purchase_button {
+    width: 300px;
+    height: 50px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 29px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.purchase_button:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* .check_button {
+    width: 300px;
+    height: 40px;
+    background-color: rgb(52, 83, 120);
+    color: #fff;
+    border: none;
+    border-radius: 29px;
+    cursor: pointer;
+} */
+
 
 /* ヘッダー */
 header{
