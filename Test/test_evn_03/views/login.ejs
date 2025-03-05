@@ -13,7 +13,6 @@
             <input type="password" name="password">
             <!-- ログインエラー文 -->
             <p><%- session.loginErr ? session.loginErr : "" %></p>
-            <p>状態：<%- session.login ? "ログイン済み" : "未ログイン" %></p>
         </div>
         <div class="button_wrapper">
             <input type="submit" class="button" value="ログイン">

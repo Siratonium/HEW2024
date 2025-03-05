@@ -185,8 +185,6 @@ select:focus {
 /* MARK:login */
 
 .login_wrapper {
-    width: 80%;
-    /* margin: 0 auto; */
     box-shadow: 0 0 5px #c0c6c9;
 }
 
@@ -501,7 +499,7 @@ header{
     position: sticky;
     top: 0;
     left: 0;
-    background-color: #dfe5ea;
+    background-color: #E6DAB0;
     padding: 5px;
     /* box-shadow: 0 5px #000; */
     z-index: 10;
@@ -558,6 +556,9 @@ header{
     justify-content: center;
     align-items: center;
     gap: 20px;
+}
+#link_icon a{
+    color: #000;
 }
 
 
