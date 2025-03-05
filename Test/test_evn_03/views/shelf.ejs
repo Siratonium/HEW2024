@@ -6,8 +6,9 @@
 </div>
 <style>
     .tCC {
-        width: 80%; 
-        height: 50%;
+        width: 40%; 
+        height: 80%;
+        margin: 5% 0;
         display: flex;
         justify-content: flex-start;
         align-items: center;
@@ -41,22 +42,28 @@
         <% if(rows[i].product_id == modal) {%>
             <div class="product_modal_wrap" id="<%- rows[i].product_id %>">
                 <div id="product_modal">
-                    <a href="/Shelf/prev">閉じる</a>
+                    <a href="/Shelf/prev"><i class="fa-regular fa-circle-xmark"></i></a>
 
                     <div class="tCC" id="tCC-<%- rows[i].product_id %>"></div>
                     
-                    <li>商品名：<%- rows[i].product_name %></li>
-                    <li>値段：<%- rows[i].fee %></li>
-                    <li>在庫：<%- rows[i].stock %></li>
-                    <li>企業：<%- rows[i].manufacturer %></li>
-                    <li>重量：<%- rows[i].weight %></li>
-                    <li>内容物：<%- rows[i].content %></li>
-                    <li>アレルゲン：<%- rows[i].allergens ? rows[i].allergens : "なし" %></li>
-                    <form action="/Shelf/Cart" method="post">
-                        <input type="hidden" name="p_id" value="<%- rows[i].product_id %>">
-                        <li>数量：<input type="number" name="quantity" value="1"></li>
-                        <input type="submit" value="カゴへ入れる">
-                    </form>
+                    <div class="modal_info">
+
+                        <li>商品名：<%- rows[i].product_name %></li>
+                        <li>値段：<%- rows[i].fee %></li>
+                        <li>在庫：<%- rows[i].stock %></li>
+                        <li>企業：<%- rows[i].manufacturer %></li>
+                        <li>重量：<%- rows[i].weight %></li>
+                        <li>内容物：<%- rows[i].content %></li>
+                        <li>アレルゲン：<%- rows[i].allergens ? rows[i].allergens : "なし" %></li>
+                        <form action="/Shelf/Cart" method="post">
+                            <input type="hidden" name="p_id" value="<%- rows[i].product_id %>">
+                            <div class="modal_li_input">
+                                <li>数量：<input type="number" name="quantity" value="1" class="quantity"></li>
+                                <input type="submit" value="カゴへ入れる" id="add_cart">
+                            </div>
+                        </form>
+
+                    </div>
                 </div>
             </div>
         <% } %>

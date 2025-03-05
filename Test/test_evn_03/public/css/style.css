@@ -17,9 +17,13 @@ input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
-}
+} 
 input[type="number"]{
     -moz-appearance:textfield; 
+}
+
+body {
+    background-color: rgb(248, 247, 244);
 }
 /* topページ */
 #top_wrap{
@@ -44,9 +48,13 @@ input[type="number"]{
     background-color: #007bff;
 }
 #back_img img{
-    width: 1920px;
-    height: 1080px;
+    width: 100%;
+    object-fit: cover;
 }
+
+
+
+
 /* ログイン画面 */
 .login_block{
     width: 500px;
@@ -101,6 +109,7 @@ body {
     flex-wrap: wrap;
     padding: 10px;
 }
+
 /* MARK:ここ消した */
 .signup_block select{
     width: 85px;
@@ -123,11 +132,12 @@ body {
     color: red;
     font-size: 12px;
 }
-.signup_wrapper, .login_wrapper {
+.signup_wrapper, .login_wrapper, .cart_content {
     width: 80%;
     margin: 5% auto;
     box-shadow: 0 0 5px #c0c6c9;
     border-radius: 5px;
+    background-color: #fff;
 }
 
 .signup_wrapper h1, .login_wrapper h1 {
@@ -195,10 +205,7 @@ select:focus {
     text-align: center;
 }
 
-/* MARK:下線 */
-.border_bottom{
-    border-bottom: 3px solid gray;
-}
+
 /* MARK:下線 */
 .border_bottom{
     border-bottom: 2px solid #c6b397;
@@ -251,11 +258,15 @@ select:focus {
     border: 1px solid #000;
 }
 #product_block{
-    width: 90%;
+    background-color: #fff;
+    box-shadow: 0 0 5px #c0c6c9;
+    border-radius: 5px;
+    width: 95%;
+    padding: 2%;
     height: auto;
     display: flex;
     flex-wrap: wrap;
-    margin: auto;
+    margin: 0 auto;
 }
 #product_ctrl{
     width: 100%;
@@ -275,16 +286,44 @@ select:focus {
     align-items: center;
 }
 #product_modal{
-    width: 800px;
-    height: 450px;
+    width: 70%;
+    height: 70%;
     background-color: #fff;
+    box-shadow: 0 0 5px #c0c6c9;
+    border-radius: 5px;
+    display: flex;
 }
 
+.modal_info {
+    margin: 5%;
+    position: relative;
+}
+
+.fa-circle-xmark {
+    font-size: 30px;
+}
+
+.quantity {
+    width: 50%;
+
+}
+
+.modal_li_input {
+    display: flex;
+    justify-content: space-around;
+    bottom: 30px;
+    position: absolute;
+}
+
+#add_cart {
+    width: 40%;
+}
 /* カゴページ */
 .cart_content{
-    width: 100%;
+    /* width: 100%; */
     height: 80%;
     margin: auto;
+    padding: 5% 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -293,25 +332,41 @@ select:focus {
 .cart_data{
     width: 80%;
     /* height: 100px; */
-    border: #000 1px solid;
+    border: 2px solid #c6b397;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #c0c6c9;
+    margin: 10px 0;
+    padding: 10px;
     display: flex;
     flex-wrap: wrap;
 }
 .cart_data img{
-    width: 10%;
+    width: 15%;
 }
 .product_data{
     width: 85%;
+    display: flex;
 }
 .product_data_detail{
     width: 100%;
     height: 80%;
+    margin: auto;
+    display: flex;
+    /* flex-wrap: wrap; */
+    justify-content: space-around;
+}
+
+.product_data_detail li {
+    width: 50%;
+    margin: auto 0; 
 }
 .product_data_ctrl{
     width: 100%;
     height: 20%;
     display: flex;
     align-items: center;
+    margin: auto 0;
+    justify-content: space-around;
 }
 .product_data_ctrl .minus, .product_data_ctrl .plus{
     width: 50px;
@@ -326,23 +381,28 @@ select:focus {
     width: 100%;
     height: 80px;
     border-bottom: #000 1px solid;
-    background-color: #fff5c5;
     display: flex;
     justify-content: space-between;
     overflow: hidden;
-    position: absolute;
 }
 #logo{
-    width: 10%;
+    width: 20%;
     display: flex;
     border-right: 1px #000 solid;
 }
+#logo_icon{
+    width: 80px;
+    height: 80px;
+}
+#logo_icon img{
+    width: 100%;
+}
 #logo_titol{
-    width: 100px;
-    height: 100%;
+    width: 200px;
+    height: 80px;
 }
 #logo_titol img{
-   height: 100%;
+    width: 100%;
 }
 #search{
     width: 50%;
