@@ -82,7 +82,7 @@ window.addEventListener("load", () => {
     function loadModel(modalId) {
         let modelPaths = {};
 
-        for (let i = 1; i < 30; i++) {
+        for (let i = 1; i < 61; i++) {
             modelPaths['p_' + i] = 'gltf/p_' + i + '.glb';
         }
 
