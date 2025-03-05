@@ -1,5 +1,5 @@
 <%-include ("base") %>
-<h1>商品ページ</h1>
+<!-- <h1>商品ページ</h1> -->
 <div id="product_ctrl">
     <a href="/Shelf/prev"><%- prev ? "＜戻る" : "" %></a>
     <a href="/Shelf/next"><%- next ? "次へ＞" : "" %></a>
@@ -67,10 +67,17 @@
         <% } %>
     <% } %>
 <% } %>
+<div id="shelf_back_img">
+    <img src="image/background/shelf.png" usemap="#shelf_map" alt="" />
+    <map name="shelf_map">
+      <area shape="poly" coords="1480,728,1416,812,1431,1008,1698,1056,1763,973,1780,804,1772,793" href="/Cart" alt="カゴページカゴページ" />
+      <area shape="poly" coords="396,672,391,706,400,741,388,784,398,822,370,857,362,938,308,1080,520,1076,524,984,538,917,536,865,548,853,535,832,514,836,528,805,527,761,536,724,528,690,495,713,431,713,416,694,416,694" href="/Top" alt="猫" />
+    </map>
+</div>
 <!-- カゴを表示 -->
-<li><a href="/Cart">買い物カゴ</a>：実装済み</li>
+<!-- <li><a href="/Cart">買い物カゴ</a>：実装済み</li> -->
 <!-- <li><a href="/delete_cart">カートテーブル全削除</a></li> -->
-<a href="/">TOPページ</a>
+<!-- <a href="/">TOPページ</a> -->
 <script src="https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.141.0/examples/js/loaders/GLTFLoader.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/controls/OrbitControls.js"></script>

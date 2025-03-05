@@ -257,6 +257,8 @@ select:focus {
     aspect-ratio: 1/1;
     border: 1px solid #000;
     background-color: #E1D1C4;
+    padding: 5px;
+    overflow: hidden;
 }
 #product_block{
     background-color: #fff;
@@ -277,7 +279,7 @@ select:focus {
 }
 .product_img{
     width: 100%;
-    aspect-ratio: 1/1;
+    object-fit: fill;
 }
 .link{
     display: block;
@@ -536,4 +538,20 @@ header{
 #link_icon{
     width: 550px;
     display: flex;
+}
+
+
+/* 棚ページ背景 */
+#shelf_back_img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -1;
+}
+#shelf_back_img img{
+    width: 1920px;
+    height: 1080px;
 }
