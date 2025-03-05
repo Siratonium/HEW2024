@@ -1,8 +1,37 @@
-window.screen.width
-window.screen.height
+// window.addEventListener("load", ()=>{
+//     const img = document.getElementById("backImg")  
+//     if(img){
+//         const dis = document.getElementById("dis")
+//         console.log(`${window.screen.width} , ${window.screen.height}`)
+//         dis.textContent = `${window.screen.width} , ${window.screen.height}`
+//         img.style.width = window.screen.width
+//         img.style.height = window.screen.height
+//         console.log(img)
+//     }
+// })
 
-const img = document.getElementById("back_img")
-if(img){
-    img.style.width = window.screen.width
-    img.style.height = window.screen.height
+// ハイライトシステム
+let isTop = document.getElementById("top_wrap")
+if(isTop){
+    let hoverAreas = document.getElementsByClassName("hover")
+    console.log(hoverAreas)
+    for(let i = 0; i < hoverAreas.length; i++){
+        let img = document.getElementById("backImg")
+        hoverAreas[i].addEventListener("mouseover", (e)=>{
+            if(e.target.id == "shelf"){
+                img.src = "image/background/mainPage_hover_shelf.png"
+
+            }else if(e.target.id == "check"){
+                img.src = "image/background/mainPage_hover_account.png"
+
+            }else if(e.target.id == "poster"){
+                img.src = "image/background/mainPage_hover_poster.png"
+
+            }
+        })
+        hoverAreas[i].addEventListener("mouseout", (e)=>{
+            img.src = "image/background/mainPage.png"
+            
+        })
+    }
 }
