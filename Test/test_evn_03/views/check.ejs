@@ -34,7 +34,7 @@
                             <button class="minus" name="update" type="submit" value="m">-</button>
                             <input type="number" class="quantity" name="quantity" value="<%- data[i].quantity %>">
                             <button class="plus" name="update" type="submit" value="p">+</button>
-                            <button  name="update" type="submit" value="d">削除</button>
+                            <button  name="update" type="submit" value="d" class="delete_button">削除</button>
                         </ul>
                     </div>
                 </form>
@@ -42,7 +42,7 @@
                 <% total_item += data[i].quantity %>
             <% } %>
         </div>
-            <p class="item_count">カートに入っている商品：<%- total_item %>点</p>
+            <p class="item_count">カート内の商品：<%- total_item %>点</p>
             <p class="price">合計：<%- total_fee %>円</p>
             <div class="buttons">
                 <a href="/Shelf"><button class="purchase_button">買い物を続ける</button></a>
