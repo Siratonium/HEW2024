@@ -313,10 +313,15 @@ app.get("/Check", (req, res) => {
 // 購入確定
 app.get("/Buy", (req, res) => {
     // データベースの削除
+    const user = req.session.login.userNumber
+    console(user)
     //カートテーブル 
+    DB.run(`delete from cart
+        where `)
     //カートアイテムテーブル
+    DB.run(`delete from cart_item`)
     // 発送日計算（今日＋3日）
-    console.log(today)
+    // 当日から計算で直打ち
     return res.render("buy_comp")
 })
 
