@@ -135,7 +135,7 @@ body {
 .signup_wrapper h1, .login_wrapper h1 {
     font-weight: 500;
     font-size: 2.5rem;
-    padding: 50px;
+    padding: 40px;
     text-align: center;
 }
 
@@ -191,7 +191,7 @@ select:focus {
 .login_wrapper h1{
     font-weight: 500;
     font-size: 2.5rem;
-    padding: 50px;
+    padding: 40px;
     text-align: center;
 }
 
@@ -343,7 +343,7 @@ select:focus {
     text-align: center;
     font-size: 2rem;
     font-weight: bold;
-    padding: 20px;
+    padding: 10px;
     color: #333;
     background-color: #f8f8f8;
 }
@@ -351,12 +351,12 @@ select:focus {
 .cart_content h1 {
     font-weight: 500;
     font-size: 2.5rem;
-    padding: 50px;
+    padding: 40px;
     text-align: center;
 }
 .cart_content{
     height: 80%;
-    padding-bottom: 5%;
+    padding-bottom: 3%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -709,4 +709,31 @@ header{
     width: 100%;
     display: flex;
     justify-content: center;
+}
+
+.fa-solid {
+    font-size: 20px;
+}
+
+#search button, #add_cart {
+    background-color: #deb068;
+    color: #fff;
+    border: none;
+    /* padding: 10px 20px; */
+    margin-left: 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#search button:hover, #add_cart:hover {
+    background-color: #b08c53;
+    transform: scale(1.05);
+}
+
+.fa-circle-xmark {
+    font-size: 30px;
+    margin: 8px;
+    color: gray;
 }
