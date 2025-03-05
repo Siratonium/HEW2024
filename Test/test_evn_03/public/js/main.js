@@ -11,6 +11,7 @@
 // })
 
 // ハイライトシステム
+// TOPページ
 let isTop = document.getElementById("top_wrap")
 if(isTop){
     let hoverAreas = document.getElementsByClassName("hover")
@@ -31,7 +32,29 @@ if(isTop){
         })
         hoverAreas[i].addEventListener("mouseout", (e)=>{
             img.src = "image/background/mainPage.png"
-            
+
+        })
+    }
+}
+// 棚ページ
+let isShelf = document.getElementById("product_block")
+if(isShelf){
+    let hoverAreas = document.getElementsByClassName("hover")
+    console.log(hoverAreas)
+    for(let i = 0; i < hoverAreas.length; i++){
+        let img = document.getElementById("back_img")    
+        hoverAreas[i].addEventListener("mouseover", (e)=>{
+            if(e.target.id == "cart"){
+                img.src = "image/background/shelf_hover_kago.png"
+
+            }else if(e.target.id == "cat"){
+                img.src = "image/background/shelf_hover_neko.png"
+
+            }
+        })
+        hoverAreas[i].addEventListener("mouseout", (e)=>{
+            img.src = "image/background/shelf.png"
+
         })
     }
 }
