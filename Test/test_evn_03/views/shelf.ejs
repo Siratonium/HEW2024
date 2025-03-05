@@ -18,7 +18,6 @@
         background: #000000;
         
     }
-
     canvas {
         width: 100%;
         height: 100%;
@@ -29,9 +28,8 @@
 <div id="product_block">
     <% for (i = productNo; i < productNo + 30; i++) {%>
         <div class="product">
-            <a href="Shelf/<%- rows[i] ? rows[i].product_id : "" %>" class = "link" id = " <%-rows[i].product_id%>" >
-                <%- rows[i] ? rows[i].product_name : "" %>
-                
+            <a href="Shelf/<%- rows[i] ? rows[i].product_id : "" %>" class = "link" id = "<%-rows[i].product_id%>" >
+                <img class="product_img" src="image/products/p_<%- i + 1 %>.png" alt="<%- rows[i] ? rows[i].product_name : "" %>">
             </a>
         </div>
     <% }; %>
@@ -71,7 +69,7 @@
 <% } %>
 <!-- カゴを表示 -->
 <li><a href="/Cart">買い物カゴ</a>：実装済み</li>
-<li><a href="/delete_cart">カートテーブル全削除</a></li>
+<!-- <li><a href="/delete_cart">カートテーブル全削除</a></li> -->
 <a href="/">TOPページ</a>
 <script src="https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.141.0/examples/js/loaders/GLTFLoader.js"></script>
