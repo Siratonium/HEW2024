@@ -312,17 +312,43 @@ app.get("/Check", (req, res) => {
 
 // 購入確定
 app.get("/Buy", (req, res) => {
-    // データベースの削除
-    const user = req.session.login.userNumber
-    console(user)
-    //カートテーブル 
-    DB.run(`delete from cart
-        where `)
-    //カートアイテムテーブル
-    DB.run(`delete from cart_item`)
-    // 発送日計算（今日＋3日）
-    // 当日から計算で直打ち
-    return res.render("buy_comp")
+    if(req.session.login){
+        // データベースの削除
+        const user = req.session.login.userNumber
+        console.log(user)
+        DB.all(`select *
+            from cart_item
+            join cart on
+            cart_item.cart_id = cart.cart_id
+            where user_number = $userNumber`,{
+                $userNumber: user
+            },(err, row) => {
+                row.forEach(data =>{
+                    //カートアイテムテーブル
+                    DB.serialize(()=>{
+                        DB.run(`delete from cart_item
+                            where cart_item_id = $CI_id`,{
+                                $CI_id: data.cart_item_id
+                            })
+                        //カートテーブル
+                        DB.run(`delete from cart
+                            where user_number = $userNumber`, {
+                                $userNumber: user
+                            })
+                    })
+                })
+        })
+
+
+
+
+        // 発送日計算（今日＋3日）
+        // 当日から計算で直打ち
+        return res.render("buy_comp")
+    }else{
+        return res.redirect("/Login")
+    }
+
 })
 
 
