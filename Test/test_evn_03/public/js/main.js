@@ -57,6 +57,11 @@ if(isShelf){
 
         })
     }
+    const mesdel = function(){
+        const message = document.getElementById("message")
+        message.style.opacity = 0
+    }
+    setTimeout(mesdel, 3000)
 }
 // 会計ページ
 let isCart = document.getElementById("check_back_img")

@@ -555,7 +555,7 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 40px;
 }
 #link_icon a{
     color: #000;
@@ -744,4 +744,40 @@ header{
 }
 #sign_comp{
     padding: 5%;
+}
+
+/* カート追加時の通知 */
+#message{
+    position: absolute;
+    width: 300px;
+    height: 50px;
+    border-radius: 10px;
+    top: 90px;
+    left: 50%;
+    transform: translate(-50%);
+    z-index: 20;
+    background-color: #deb068;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    /* display: none; */
+}
+
+.h_icon{
+    font-size: 30px;
+    position: relative;
+}
+
+#batch{
+    width: 20px;
+    aspect-ratio: 1/1;
+    background-color: red;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

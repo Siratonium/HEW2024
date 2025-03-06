@@ -39,6 +39,8 @@ app.use(session({
     }
 }))
 
+
+
 const DB = new sqlite.Database("hew.db")
 
 // TOPページ
@@ -70,6 +72,7 @@ app.get("/Poster", (req, res) => {
 })
 
 // 棚ページ
+let add = false
 DB.all(`select * 
     from product 
     join description on 
@@ -93,7 +96,8 @@ DB.all(`select *
                             next: next,
                             prev: prev,
                             modal: modal,
-                            session: req.session
+                            session: req.session,
+                            add: add
                         }) 
                     }
                 }
@@ -116,6 +120,7 @@ DB.all(`select *
                     next = true
                 }
                 modal = false
+                add = false
                 return res.redirect("/Shelf")
             })
         }
@@ -165,7 +170,6 @@ app.post("/Shelf/Cart", (req, res) => {
                                         console.log(`row128 Error: ${err}`)
                                     }
                                 })
-                            console.log("新規作成")
                         })
                     }
                 }
@@ -228,6 +232,7 @@ app.post("/Shelf/Cart", (req, res) => {
                     })
             })
         })
+        add = true
         return res.redirect("/Shelf")
     }else{
         return res.redirect("/Login")
