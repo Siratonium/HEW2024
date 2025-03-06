@@ -756,11 +756,11 @@ header{
     left: 50%;
     transform: translate(-50%);
     z-index: 20;
-    background-color: #deb068;
+    background-color: #fddea5;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #fff;
+    color: #000;
     /* display: none; */
 }
 
@@ -780,4 +780,9 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.itemname {
+    font-size: 30px;
+    margin-bottom: 10px;
 }
